@@ -1,0 +1,30 @@
+---
+// Slash-delimited nav, bracketed counter, year marker.
+// Inspired by thelinestudio.com's editorial/filmmaker chrome.
+
+const navItems = [
+  { label: 'Work', href: '/work' },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
+];
+
+const year = new Date().getFullYear();
+---
+
+<header class="w-full px-[var(--space-gutter)] py-6 flex items-center justify-between font-mono text-[var(--text-small)]">
+  <a href="/" class="font-[family-name:var(--font-display)] text-[1.25rem] tracking-wide uppercase">
+    The&nbsp;Oracles
+  </a>
+
+  <nav class="slash-nav hidden sm:flex items-center">
+    {navItems.map((item) => (
+      <a href={item.href} class="hover:text-[var(--color-vermillion)] transition-colors">
+        {item.label}
+      </a>
+    ))}
+  </nav>
+
+  <div class="text-[var(--color-muted)] hidden md:block">
+    <span class="bracket-count">MMXXVI</span>
+  </div>
+</header>

@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------
+ * The Oracles — design tokens
+ * Derived from thelinestudio.com aesthetic, scaled for the
+ * Oracles' editorial/reflective voice.
+ * ------------------------------------------------------- */
+
+@theme {
+  /* Color system */
+  --color-paper: #efeeea;          /* warm off-white body */
+  --color-ink: #0b0b0b;            /* near-black type */
+  --color-vermillion: #d64228;     /* accent — used sparingly */
+  --color-muted: #6b6a66;          /* secondary text */
+  --color-hairline: #d6d4cf;       /* dividers */
+
+  /* Type system — load in BaseLayout */
+  --font-display: "Archivo Black", "Arial Black", sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Type scale — editorial, large display */
+  --text-hero: clamp(3.5rem, 12vw, 11rem);
+  --text-display: clamp(2.5rem, 7vw, 6rem);
+  --text-h1: clamp(2rem, 5vw, 4rem);
+  --text-h2: clamp(1.5rem, 3.5vw, 2.5rem);
+  --text-h3: 1.5rem;
+  --text-body: 1.0625rem;
+  --text-small: 0.8125rem;
+
+  /* Spacing rhythm */
+  --space-gutter: clamp(1rem, 4vw, 3rem);
+}
+
+/* Base resets */
+html {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100dvh;
+  line-height: 1.5;
+}
+
+/* Filmic motifs — reusable primitives */
+
+.slash-nav a + a::before {
+  content: " / ";
+  color: var(--color-muted);
+  margin: 0 0.5em;
+}
+
+.bracket-count::before { content: "[ "; color: var(--color-muted); }
+.bracket-count::after  { content: " ]"; color: var(--color-muted); }
+
+.film-frame {
+  position: relative;
+}
+.film-frame::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px dashed var(--color-paper);
+  mix-blend-mode: difference;
+  pointer-events: none;
+}

@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="The Oracles">
+  <!-- Hero: full-bleed, oversized display type.
+       Placeholder copy — replace with real tagline after content audit. -->
+  <section class="px-[var(--space-gutter)] py-[clamp(4rem,14vw,12rem)]">
+    <p class="font-mono text-[var(--text-small)] text-[var(--color-muted)] mb-6">
+      <span class="bracket-count">01</span>
+      <span class="ml-4">A storytelling studio</span>
+    </p>
+
+    <h1 class="font-[family-name:var(--font-display)] uppercase leading-[0.9] tracking-tight"
+        style="font-size: var(--text-hero);">
+      Where&nbsp;law<br />
+      and&nbsp;story<br />
+      <span class="text-[var(--color-vermillion)]">meet.</span>
+    </h1>
+
+    <p class="mt-12 max-w-xl text-[var(--text-body)] leading-relaxed">
+      The Oracles tells stories that promote the goodness of God&apos;s law.
+      <em class="not-italic text-[var(--color-muted)]">
+        — placeholder; real copy coming from content audit.
+      </em>
+    </p>
+  </section>
+
+  <!-- Section divider — vermillion full-bleed block, a nod to THE LINE.
+       Skewed via CSS clip-path; no JS required. -->
+  <section
+    class="w-full bg-[var(--color-vermillion)] text-[var(--color-paper)]"
+    style="clip-path: polygon(0 8%, 100% 0, 100% 92%, 0 100%); padding: clamp(6rem,16vw,14rem) var(--space-gutter);"
+  >
+    <p class="font-mono text-[var(--text-small)] opacity-80 mb-6">
+      <span class="bracket-count">02</span>
+    </p>
+    <h2 class="font-[family-name:var(--font-display)] uppercase leading-[0.9]"
+        style="font-size: var(--text-display);">
+      Work&nbsp;in&nbsp;progress.
+    </h2>
+    <p class="mt-8 max-w-xl">
+      Placeholder section. Will house a selected-work grid with film-frame overlays.
+    </p>
+  </section>
+
+  <!-- Closing / about teaser -->
+  <section class="px-[var(--space-gutter)] py-[clamp(4rem,10vw,10rem)]">
+    <p class="font-mono text-[var(--text-small)] text-[var(--color-muted)] mb-6">
+      <span class="bracket-count">03</span>
+      <span class="ml-4">About</span>
+    </p>
+    <h2 class="font-[family-name:var(--font-display)] uppercase leading-[0.9] max-w-4xl"
+        style="font-size: var(--text-h1);">
+      A small studio, a specific mission.
+    </h2>
+    <a href="/about"
+       class="inline-block mt-10 font-mono text-[var(--text-small)] uppercase tracking-wider border-b border-[var(--color-ink)] pb-0.5 hover:text-[var(--color-vermillion)] hover:border-[var(--color-vermillion)] transition-colors">
+      / Read more
+    </a>
+  </section>
+</BaseLayout>
