@@ -1,0 +1,79 @@
+---
+/* Hero reel — letterboxed BTS loop treated to match the Oracles palette.
+ * - Static poster renders first (LCP-friendly).
+ * - Video is muted/looped/autoplay inline; respects prefers-reduced-motion.
+ * - 2.40:1 crop + 40% desaturation + warm shadow tint are baked into the
+ *   encoded MP4 so we don't pay a CSS-filter cost on every frame.
+ */
+---
+
+<figure class="hero-reel">
+  <video
+    class="hero-reel__video"
+    src="/video/hero-loop.mp4"
+    poster="/video/hero-poster.jpg"
+    autoplay
+    loop
+    muted
+    playsinline
+    preload="metadata"
+    aria-label="Behind the scenes at The Oracles"
+  ></video>
+
+  <figcaption class="hero-reel__caption">
+    <span class="bracket-count">BTS</span>
+    <span>/ MMXXVI · Behind the scenes</span>
+  </figcaption>
+</figure>
+
+<style>
+  .hero-reel {
+    margin: 0;
+    width: 100%;
+    position: relative;
+    /* Thin vermillion border — picks up the brand accent without shouting. */
+    outline: 1px solid var(--color-vermillion);
+    outline-offset: 0;
+  }
+
+  .hero-reel__video {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2.4 / 1;
+    object-fit: cover;
+    background: #0b0b0b;
+  }
+
+  .hero-reel__caption {
+    position: absolute;
+    left: 0.9rem;
+    bottom: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--color-paper);
+    letter-spacing: 0.04em;
+    mix-blend-mode: difference;
+    display: inline-flex;
+    gap: 0.75rem;
+    pointer-events: none;
+  }
+
+  /* Reduced-motion users see only the poster frame. */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-reel__video {
+      /* Pause playback for assistive tech / motion-sensitive users. */
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  // Honor prefers-reduced-motion at runtime (browsers won't auto-pause for us).
+  const video = document.querySelector<HTMLVideoElement>('.hero-reel__video');
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (video && motion.matches) {
+    video.removeAttribute('autoplay');
+    video.pause();
+  }
+</script>
