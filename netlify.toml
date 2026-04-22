@@ -10,6 +10,22 @@
   # Astro + Tailwind v4 need Node 20+.
   NODE_VERSION = "20"
 
+# Route renames / safety redirects.
+# The work page lives at /work (matches the nav label). The old /portfolio URL
+# that briefly shipped is 301-redirected so any external links, bookmarks, or
+# indexed pages still resolve cleanly.
+[[redirects]]
+  from = "/portfolio"
+  to = "/work"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/portfolio/*"
+  to = "/work/:splat"
+  status = 301
+  force = true
+
 # Long-cache for fingerprinted Astro assets.
 [[headers]]
   for = "/_astro/*"
