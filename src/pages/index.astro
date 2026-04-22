@@ -97,13 +97,16 @@ import HeroReel from '../components/HeroReel.astro';
     </a>
   </section>
 
-  <!-- Donate section.
-       Anchored with id="donate" so the nav "/#donate" link scrolls here.
+  <!-- Support section.
+       Anchor `support` matches the nav label ("Support"). A secondary
+       `donate` anchor is kept so any external link that still points at
+       /#donate (old nav, email signatures, bookmarks) scrolls here too.
        CTA opens GivingFuel in a new tab. -->
   <section
-    id="donate"
+    id="support"
     class="px-[var(--space-gutter)] py-[clamp(5rem,12vw,12rem)] border-t border-[var(--color-hairline)]"
   >
+    <span id="donate" aria-hidden="true"></span>
     <p class="font-mono text-[var(--text-small)] text-[var(--color-muted)] mb-6">
       <span class="bracket-count">04</span>
       <span class="ml-4">Support</span>
@@ -124,7 +127,7 @@ import HeroReel from '../components/HeroReel.astro';
       rel="noopener"
       class="inline-flex items-center gap-3 mt-12 bg-[var(--color-vermillion)] text-[var(--color-paper)] font-mono text-[var(--text-small)] uppercase tracking-wider px-8 py-4 hover:opacity-90 transition-opacity"
     >
-      <span>/ Support the studio</span>
+      <span>/ Donate</span>
       <span aria-hidden="true">&rarr;</span>
     </a>
     <p class="mt-6 font-mono text-[var(--text-small)] text-[var(--color-muted)]">
