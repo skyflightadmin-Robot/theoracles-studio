@@ -1,4 +1,6 @@
 ---
+import NewsletterForm from './NewsletterForm.astro';
+
 const socials = [
   { label: 'X', href: 'https://x.com/oracles_studio' },
   { label: 'Instagram', href: 'https://www.instagram.com/theoracles.studio/' },
@@ -7,6 +9,12 @@ const socials = [
 ---
 
 <footer class="w-full px-[var(--space-gutter)] py-12 mt-24 border-t border-[var(--color-hairline)] font-mono text-[var(--text-small)] text-[var(--color-muted)]">
+  <!-- Newsletter row — sits above the tri-column wordmark/socials/year
+       row. Netlify captures submissions; first-pass follow-up is manual. -->
+  <div class="pb-10 mb-10 border-b border-[var(--color-hairline)]">
+    <NewsletterForm variant="footer" />
+  </div>
+
   <div class="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
     <div>
       <p class="uppercase tracking-wide text-[var(--color-ink)]">The Oracles</p>

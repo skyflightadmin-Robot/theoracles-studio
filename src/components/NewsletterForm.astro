@@ -1,0 +1,99 @@
+---
+/* Newsletter signup — Netlify Forms backed.
+ * Netlify detects the form at build time via data-netlify="true" + the
+ * hidden form-name field. Submissions appear in the Netlify dashboard
+ * under Forms (newsletter) and trigger a notification to the address
+ * configured in Site settings → Forms → Form notifications.
+ *
+ * The inline script upgrades the submit behavior to fetch() + swap,
+ * so users get an inline "Thanks" state instead of a redirect to
+ * Netlify's default success URL. If JS fails, the form still submits
+ * normally — progressive enhancement.
+ */
+
+interface Props {
+  variant?: 'footer' | 'support';
+  className?: string;
+}
+const { variant = 'footer', className = '' } = Astro.props;
+---
+
+<div class={`newsletter ${className}`} data-newsletter-variant={variant}>
+  <form
+    name="newsletter"
+    method="POST"
+    data-netlify="true"
+    netlify-honeypot="bot-field"
+    class="newsletter__form"
+  >
+    <input type="hidden" name="form-name" value="newsletter" />
+    <p class="hidden">
+      <label>Don&rsquo;t fill this out if you&rsquo;re human: <input name="bot-field" /></label>
+    </p>
+
+    {variant === 'support' ? (
+      <p class="newsletter__label font-mono text-[var(--text-small)] uppercase tracking-wider text-[var(--color-muted)]">
+        / Not ready to give? Get occasional dispatches instead.
+      </p>
+    ) : (
+      <p class="newsletter__label font-mono text-[var(--text-small)] uppercase tracking-wider text-[var(--color-muted)]">
+        / Occasional dispatches when we publish new work
+      </p>
+    )}
+
+    <div class="newsletter__row mt-3 flex items-center gap-4 max-w-md">
+      <label class="sr-only" for={`newsletter-email-${variant}`}>Email address</label>
+      <input
+        id={`newsletter-email-${variant}`}
+        type="email"
+        name="email"
+        required
+        placeholder="you@email.com"
+        class="flex-1 min-w-0 bg-transparent border-0 border-b border-[var(--color-ink)] py-2 text-[var(--text-body)] placeholder-[var(--color-muted)] focus:outline-none focus:border-[var(--color-vermillion)] transition-colors"
+      />
+      <button
+        type="submit"
+        class="shrink-0 font-mono text-[var(--text-small)] uppercase tracking-wider border-b-2 border-[var(--color-ink)] pb-1 hover:text-[var(--color-vermillion)] hover:border-[var(--color-vermillion)] transition-colors"
+      >
+        / Subscribe &rarr;
+      </button>
+    </div>
+  </form>
+
+  <p class="newsletter__success hidden mt-3 font-mono text-[var(--text-small)] text-[var(--color-muted)]">
+    / Thanks &mdash; you&rsquo;re on the list.
+  </p>
+  <p class="newsletter__error hidden mt-3 font-mono text-[var(--text-small)] text-[var(--color-vermillion)]">
+    / Something broke. Try again or email hello@theoracles.studio.
+  </p>
+</div>
+
+<script>
+  // Progressive enhancement: intercept submit, POST via fetch, swap to
+  // inline success state. Form still falls back to a standard POST +
+  // Netlify redirect if JS fails.
+  document.querySelectorAll<HTMLFormElement>('form[name="newsletter"]').forEach((form) => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const wrap = form.closest('.newsletter') as HTMLElement;
+      if (!wrap) return;
+      const success = wrap.querySelector('.newsletter__success') as HTMLElement;
+      const error = wrap.querySelector('.newsletter__error') as HTMLElement;
+      error?.classList.add('hidden');
+
+      const data = new FormData(form);
+      const body = new URLSearchParams();
+      data.forEach((v, k) => body.append(k, v.toString()));
+
+      try {
+        const res = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body.toString() });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        form.classList.add('hidden');
+        success?.classList.remove('hidden');
+      } catch (err) {
+        console.error('Newsletter submit failed', err);
+        error?.classList.remove('hidden');
+      }
+    });
+  });
+</script>
