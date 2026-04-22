@@ -1,28 +1,60 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroReel from '../components/HeroReel.astro';
 ---
 
 <BaseLayout title="The Oracles">
-  <!-- Hero: full-bleed, oversized display type.
-       Real copy from theoracles.studio content audit (2026-04-21). -->
-  <section class="px-[var(--space-gutter)] py-[clamp(4rem,14vw,12rem)]">
-    <p class="font-mono text-[var(--text-small)] text-[var(--color-muted)] mb-6">
-      <span class="bracket-count">01</span>
-      <span class="ml-4">Who we are</span>
-    </p>
+  <!-- Hero: full-bleed type paired with a letterboxed BTS reel on the right.
+       Grid collapses to a single column on narrow viewports so the reel
+       stacks under the type instead of squeezing. -->
+  <section class="hero-grid px-[var(--space-gutter)] pt-[clamp(2rem,6vw,5rem)] pb-[clamp(4rem,10vw,9rem)]">
+    <div class="hero-grid__type">
+      <p class="font-mono text-[var(--text-small)] text-[var(--color-muted)] mb-6">
+        <span class="bracket-count">01</span>
+        <span class="ml-4">Who we are</span>
+      </p>
 
-    <h1 class="font-[family-name:var(--font-display)] uppercase leading-[0.9] tracking-tight"
-        style="font-size: var(--text-hero);">
-      Where&nbsp;law<br />
-      and&nbsp;story<br />
-      <span class="text-[var(--color-vermillion)]">meet.</span>
-    </h1>
+      <h1 class="font-[family-name:var(--font-display)] uppercase leading-[0.9] tracking-tight hero-title">
+        Where&nbsp;law<br />
+        and&nbsp;story<br />
+        <span class="text-[var(--color-vermillion)]">meet.</span>
+      </h1>
 
-    <p class="mt-12 max-w-xl text-[var(--text-body)] leading-relaxed">
-      We&rsquo;re a small nonprofit studio telling stories that promote
-      the goodness of God&rsquo;s law.
-    </p>
+      <p class="mt-10 max-w-xl text-[var(--text-body)] leading-relaxed">
+        We&rsquo;re a small nonprofit studio telling stories that promote
+        the goodness of God&rsquo;s law.
+      </p>
+    </div>
+
+    <aside class="hero-grid__reel">
+      <HeroReel />
+    </aside>
   </section>
+
+  <style>
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(2rem, 5vw, 4rem);
+      align-items: center;
+    }
+    /* Scale the hero headline down on the 2-column layout so the reel
+     * sits next to the type rather than far below it. */
+    .hero-title {
+      font-size: clamp(3rem, 10vw, 8rem);
+    }
+    @media (min-width: 900px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      }
+      .hero-title {
+        font-size: clamp(3rem, 7.5vw, 6rem);
+      }
+      .hero-grid__reel {
+        align-self: center;
+      }
+    }
+  </style>
 
   <!-- Work preview — vermillion full-bleed block, a nod to THE LINE.
        Links out to the portfolio page. -->
@@ -36,12 +68,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </p>
     <h2 class="font-[family-name:var(--font-display)] uppercase leading-[0.9]"
         style="font-size: var(--text-display);">
-      Christian&nbsp;education.<br />
-      Pastoral&nbsp;care.
+      Many&nbsp;stories.<br />
+      One&nbsp;law.
     </h2>
     <p class="mt-8 max-w-xl">
-      Two streams of work. Both aimed at imprinting the good, beautiful,
-      and true nature of the law of God.
+      Christian education. Pastoral care. And more — all aimed at
+      imprinting the good, beautiful, and true nature of the law of God.
     </p>
     <a href="/portfolio"
        class="inline-block mt-10 font-mono text-[var(--text-small)] uppercase tracking-wider border-b border-[var(--color-paper)] pb-0.5 hover:opacity-80 transition-opacity">
