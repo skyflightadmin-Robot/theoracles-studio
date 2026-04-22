@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Netlify Forms: data-netlify="true" on a POST form is all Netlify needs.
+// The hidden form-name field is required for the build-time form detection.
+// After launch, submissions show up in the Netlify dashboard under Forms.
+---
+
+<BaseLayout title="Contact — The Oracles">
+  <section class="px-[var(--space-gutter)] pt-[clamp(4rem,10vw,9rem)] pb-[clamp(2rem,6vw,5rem)]">
+    <p class="font-mono text-[var(--text-small)] text-[var(--color-muted)] mb-6">
+      <span class="bracket-count">Contact</span>
+    </p>
+    <h1 class="font-[family-name:var(--font-display)] uppercase leading-[0.9] max-w-5xl"
+        style="font-size: var(--text-display);">
+      Reach out.
+    </h1>
+    <p class="mt-10 max-w-2xl text-[var(--text-body)] leading-relaxed">
+      Do you need help telling a story? Are you a donor wondering about
+      who we help? Do you have questions about our process? We&rsquo;d love
+      to hear from you.
+    </p>
+  </section>
+
+  <!-- Netlify-backed contact form. Editorial, lots of whitespace,
+       input lines only (no boxed fields). -->
+  <section class="px-[var(--space-gutter)] pb-[clamp(5rem,12vw,10rem)]">
+    <form
+      name="contact"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      class="max-w-2xl space-y-10"
+    >
+      <input type="hidden" name="form-name" value="contact" />
+      <p class="hidden">
+        <label>Don&rsquo;t fill this out if you&rsquo;re human: <input name="bot-field" /></label>
+      </p>
+
+      <label class="block">
+        <span class="font-mono text-[var(--text-small)] uppercase tracking-wider text-[var(--color-muted)]">
+          Name
+        </span>
+        <input
+          type="text"
+          name="name"
+          class="mt-2 w-full bg-transparent border-0 border-b border-[var(--color-ink)] py-3 text-[var(--text-body)] focus:outline-none focus:border-[var(--color-vermillion)] transition-colors"
+        />
+      </label>
+
+      <label class="block">
+        <span class="font-mono text-[var(--text-small)] uppercase tracking-wider text-[var(--color-muted)]">
+          Email <span class="text-[var(--color-vermillion)]">*</span>
+        </span>
+        <input
+          type="email"
+          name="email"
+          required
+          class="mt-2 w-full bg-transparent border-0 border-b border-[var(--color-ink)] py-3 text-[var(--text-body)] focus:outline-none focus:border-[var(--color-vermillion)] transition-colors"
+        />
+      </label>
+
+      <label class="block">
+        <span class="font-mono text-[var(--text-small)] uppercase tracking-wider text-[var(--color-muted)]">
+          Message
+        </span>
+        <textarea
+          name="message"
+          rows="6"
+          class="mt-2 w-full bg-transparent border-0 border-b border-[var(--color-ink)] py-3 text-[var(--text-body)] resize-y focus:outline-none focus:border-[var(--color-vermillion)] transition-colors"
+        ></textarea>
+      </label>
+
+      <button
+        type="submit"
+        class="font-mono text-[var(--text-small)] uppercase tracking-wider border-b-2 border-[var(--color-ink)] pb-1 hover:text-[var(--color-vermillion)] hover:border-[var(--color-vermillion)] transition-colors"
+      >
+        / Send
+      </button>
+    </form>
+  </section>
+</BaseLayout>

@@ -3,28 +3,33 @@
 // Inspired by thelinestudio.com's editorial/filmmaker chrome.
 
 const navItems = [
-  { label: 'Work', href: '/work' },
+  { label: 'Work', href: '/portfolio' },
   { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
+  { label: 'Donate', href: '/#donate' },
 ];
 
 const year = new Date().getFullYear();
 ---
 
-<header class="w-full px-[var(--space-gutter)] py-6 flex items-center justify-between font-mono text-[var(--text-small)]">
-  <a href="/" class="font-[family-name:var(--font-display)] text-[1.25rem] tracking-wide uppercase">
-    The&nbsp;Oracles
-  </a>
+<header class="w-full px-[var(--space-gutter)] py-6 font-mono text-[var(--text-small)]">
+  <!-- Mobile: stacks wordmark over wrapping slash-nav.
+       Tablet+: wordmark · nav · year-marker in one row. -->
+  <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+    <a href="/" class="font-[family-name:var(--font-display)] text-[1.125rem] sm:text-[1.25rem] tracking-wide uppercase shrink-0">
+      The&nbsp;Oracles
+    </a>
 
-  <nav class="slash-nav hidden sm:flex items-center">
-    {navItems.map((item) => (
-      <a href={item.href} class="hover:text-[var(--color-vermillion)] transition-colors">
-        {item.label}
-      </a>
-    ))}
-  </nav>
+    <nav class="slash-nav flex flex-wrap items-center sm:justify-center" aria-label="Primary">
+      {navItems.map((item) => (
+        <a href={item.href} class="hover:text-[var(--color-vermillion)] transition-colors">
+          {item.label}
+        </a>
+      ))}
+    </nav>
 
-  <div class="text-[var(--color-muted)] hidden md:block">
-    <span class="bracket-count">MMXXVI</span>
+    <div class="text-[var(--color-muted)] hidden lg:block shrink-0">
+      <span class="bracket-count">MMXXVI</span>
+    </div>
   </div>
 </header>

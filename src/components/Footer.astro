@@ -1,20 +1,39 @@
 ---
-const year = new Date().getFullYear();
+const socials = [
+  { label: 'X', href: 'https://x.com/oracles_studio' },
+  { label: 'Instagram', href: 'https://www.instagram.com/theoracles.studio/' },
+  { label: 'YouTube', href: 'https://www.youtube.com/@theoracles.studio' },
+];
 ---
 
 <footer class="w-full px-[var(--space-gutter)] py-12 mt-24 border-t border-[var(--color-hairline)] font-mono text-[var(--text-small)] text-[var(--color-muted)]">
-  <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+  <div class="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
     <div>
-      <span class="uppercase tracking-wide">The Oracles</span>
-      <span class="mx-2">/</span>
-      <span>Where law and story meet.</span>
+      <p class="uppercase tracking-wide text-[var(--color-ink)]">The Oracles</p>
+      <p class="mt-1">Where law and story meet.</p>
+      <p class="mt-4">
+        <a href="mailto:hello@theoracles.studio" class="hover:text-[var(--color-ink)]">
+          hello@theoracles.studio
+        </a>
+      </p>
     </div>
-    <div>
-      <span>&copy; MMXXVI</span>
-      <span class="mx-2">/</span>
-      <a href="mailto:hello@theoracles.studio" class="hover:text-[var(--color-ink)]">
-        hello@theoracles.studio
-      </a>
+
+    <nav class="slash-nav flex flex-wrap" aria-label="Social">
+      {socials.map((s) => (
+        <a
+          href={s.href}
+          target="_blank"
+          rel="noopener"
+          class="hover:text-[var(--color-vermillion)] transition-colors"
+        >
+          {s.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="md:text-right">
+      <span class="bracket-count">MMXXVI</span>
+      <p class="mt-1">&copy; The Oracles Studio</p>
     </div>
   </div>
 </footer>

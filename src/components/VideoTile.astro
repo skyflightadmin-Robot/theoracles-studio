@@ -1,0 +1,93 @@
+---
+// Click-to-play YouTube tile.
+// Shows a custom poster + title + duration in our editorial style;
+// loads the YouTube iframe only on click (saves ~1MB of JS on initial page load,
+// and lets us present the video without YouTube chrome until play).
+//
+// Privacy: uses youtube-nocookie.com to avoid setting tracking cookies
+// until the visitor actually presses play.
+
+interface Props {
+  videoId: string;
+  title: string;
+  duration?: string; // ISO 8601, e.g. "PT1M34S"
+  description?: string;
+}
+
+const { videoId, title, duration, description } = Astro.props;
+
+// ISO 8601 → "m:ss"
+function formatDuration(iso?: string) {
+  if (!iso) return '';
+  const match = iso.match(/PT(?:(\d+)M)?(?:(\d+)S)?/);
+  if (!match) return '';
+  const m = parseInt(match[1] || '0', 10);
+  const s = parseInt(match[2] || '0', 10);
+  return `${m}:${s.toString().padStart(2, '0')}`;
+}
+
+const durationLabel = formatDuration(duration);
+const thumbnail = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+---
+
+<article class="video-tile group" data-video-id={videoId}>
+  <button
+    type="button"
+    class="video-tile__play relative block w-full overflow-hidden bg-[var(--color-ink)] cursor-pointer"
+    style="aspect-ratio: 16 / 9;"
+    aria-label={`Play: ${title}`}
+  >
+    <img
+      src={thumbnail}
+      alt=""
+      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+      loading="lazy"
+    />
+    <span class="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/30 transition-colors">
+      <span class="flex items-center justify-center w-20 h-20 rounded-full bg-[var(--color-vermillion)] text-[var(--color-paper)] transition-transform group-hover:scale-110">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M8 5v14l11-7z" />
+        </svg>
+      </span>
+    </span>
+    {durationLabel && (
+      <span class="absolute bottom-3 right-3 font-mono text-[var(--text-small)] text-[var(--color-paper)] bg-black/70 px-2 py-1">
+        {durationLabel}
+      </span>
+    )}
+  </button>
+
+  <div class="mt-5">
+    <h3 class="font-[family-name:var(--font-display)] uppercase leading-tight"
+        style="font-size: var(--text-h3);">
+      {title}
+    </h3>
+    {description && (
+      <p class="mt-3 text-[var(--color-muted)] leading-relaxed max-w-prose">
+        {description}
+      </p>
+    )}
+  </div>
+</article>
+
+<script>
+  // Swap the poster <button> for a YouTube iframe on click.
+  document.querySelectorAll<HTMLElement>('.video-tile').forEach((tile) => {
+    const button = tile.querySelector<HTMLButtonElement>('.video-tile__play');
+    const videoId = tile.dataset.videoId;
+    if (!button || !videoId) return;
+    button.addEventListener('click', () => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'w-full';
+      wrapper.style.aspectRatio = '16 / 9';
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+      iframe.title = 'Video player';
+      iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+      iframe.allowFullscreen = true;
+      iframe.className = 'w-full h-full border-0';
+      wrapper.appendChild(iframe);
+      button.replaceWith(wrapper);
+    });
+  });
+</script>

@@ -4,11 +4,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout title="The Oracles">
   <!-- Hero: full-bleed, oversized display type.
-       Placeholder copy — replace with real tagline after content audit. -->
+       Real copy from theoracles.studio content audit (2026-04-21). -->
   <section class="px-[var(--space-gutter)] py-[clamp(4rem,14vw,12rem)]">
     <p class="font-mono text-[var(--text-small)] text-[var(--color-muted)] mb-6">
       <span class="bracket-count">01</span>
-      <span class="ml-4">A storytelling studio</span>
+      <span class="ml-4">Who we are</span>
     </p>
 
     <h1 class="font-[family-name:var(--font-display)] uppercase leading-[0.9] tracking-tight"
@@ -19,32 +19,37 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </h1>
 
     <p class="mt-12 max-w-xl text-[var(--text-body)] leading-relaxed">
-      The Oracles tells stories that promote the goodness of God&apos;s law.
-      <em class="not-italic text-[var(--color-muted)]">
-        — placeholder; real copy coming from content audit.
-      </em>
+      We&rsquo;re a small nonprofit studio telling stories that promote
+      the goodness of God&rsquo;s law.
     </p>
   </section>
 
-  <!-- Section divider — vermillion full-bleed block, a nod to THE LINE.
-       Skewed via CSS clip-path; no JS required. -->
+  <!-- Work preview — vermillion full-bleed block, a nod to THE LINE.
+       Links out to the portfolio page. -->
   <section
     class="w-full bg-[var(--color-vermillion)] text-[var(--color-paper)]"
     style="clip-path: polygon(0 8%, 100% 0, 100% 92%, 0 100%); padding: clamp(6rem,16vw,14rem) var(--space-gutter);"
   >
     <p class="font-mono text-[var(--text-small)] opacity-80 mb-6">
       <span class="bracket-count">02</span>
+      <span class="ml-4">Work</span>
     </p>
     <h2 class="font-[family-name:var(--font-display)] uppercase leading-[0.9]"
         style="font-size: var(--text-display);">
-      Work&nbsp;in&nbsp;progress.
+      Christian&nbsp;education.<br />
+      Pastoral&nbsp;care.
     </h2>
     <p class="mt-8 max-w-xl">
-      Placeholder section. Will house a selected-work grid with film-frame overlays.
+      Two streams of work. Both aimed at imprinting the good, beautiful,
+      and true nature of the law of God.
     </p>
+    <a href="/portfolio"
+       class="inline-block mt-10 font-mono text-[var(--text-small)] uppercase tracking-wider border-b border-[var(--color-paper)] pb-0.5 hover:opacity-80 transition-opacity">
+      / See the work
+    </a>
   </section>
 
-  <!-- Closing / about teaser -->
+  <!-- About teaser -->
   <section class="px-[var(--space-gutter)] py-[clamp(4rem,10vw,10rem)]">
     <p class="font-mono text-[var(--text-small)] text-[var(--color-muted)] mb-6">
       <span class="bracket-count">03</span>
@@ -58,5 +63,40 @@ import BaseLayout from '../layouts/BaseLayout.astro';
        class="inline-block mt-10 font-mono text-[var(--text-small)] uppercase tracking-wider border-b border-[var(--color-ink)] pb-0.5 hover:text-[var(--color-vermillion)] hover:border-[var(--color-vermillion)] transition-colors">
       / Read more
     </a>
+  </section>
+
+  <!-- Donate section.
+       Anchored with id="donate" so the nav "/#donate" link scrolls here.
+       CTA opens GivingFuel in a new tab. -->
+  <section
+    id="donate"
+    class="px-[var(--space-gutter)] py-[clamp(5rem,12vw,12rem)] border-t border-[var(--color-hairline)]"
+  >
+    <p class="font-mono text-[var(--text-small)] text-[var(--color-muted)] mb-6">
+      <span class="bracket-count">04</span>
+      <span class="ml-4">Support</span>
+    </p>
+    <h2 class="font-[family-name:var(--font-display)] uppercase leading-[0.9] max-w-4xl"
+        style="font-size: var(--text-h1);">
+      Stories that otherwise<br />
+      wouldn&rsquo;t&nbsp;be&nbsp;told.
+    </h2>
+    <p class="mt-10 max-w-xl text-[var(--text-body)] leading-relaxed">
+      The Oracles helps smaller organizations bring their work to life &mdash;
+      professional editing, equipment, and production. Your support keeps
+      that work possible.
+    </p>
+    <a
+      href="https://urbanskye.givingfuel.com/aaron-sanford"
+      target="_blank"
+      rel="noopener"
+      class="inline-flex items-center gap-3 mt-12 bg-[var(--color-vermillion)] text-[var(--color-paper)] font-mono text-[var(--text-small)] uppercase tracking-wider px-8 py-4 hover:opacity-90 transition-opacity"
+    >
+      <span>/ Support the studio</span>
+      <span aria-hidden="true">&rarr;</span>
+    </a>
+    <p class="mt-6 font-mono text-[var(--text-small)] text-[var(--color-muted)]">
+      Secure giving via GivingFuel &middot; urbanskye.givingfuel.com
+    </p>
   </section>
 </BaseLayout>

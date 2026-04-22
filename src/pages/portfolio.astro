@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import VideoTile from '../components/VideoTile.astro';
+
+// Portfolio entries grouped by category.
+// Metadata pulled from YouTube (og:title, og:description, itemprop:duration).
+// Add new entries by pushing objects into the matching array.
+const education = [
+  {
+    videoId: 'MLUgXhiouTE',
+    title: 'Reign Christian Academy',
+    duration: 'PT1M34S',
+    description:
+      'Reign Christian Academy welcomes all students to find joy and opportunity through an affordable and personalized classical education.',
+  },
+];
+
+const pastoral = [
+  {
+    videoId: 'h3JXcUzfK8Y',
+    title: "Pastor's Monday — Colorado Chapter",
+    duration: 'PT1M36S',
+    description:
+      "A reservoir, not a canal. Bernard's exhortation to pastors, set to story.",
+  },
+  {
+    videoId: 'zTyhAaXmdnw',
+    title: '2026 The Gathering — One Gospel',
+    duration: 'PT1M31S',
+    description:
+      'One Gospel encouraging pastors, staff, and lay leaders to come and enjoy each other at their annual gathering.',
+  },
+];
+---
+
+<BaseLayout title="Work — The Oracles">
+  <section class="px-[var(--space-gutter)] pt-[clamp(4rem,10vw,9rem)] pb-[clamp(2rem,6vw,5rem)]">
+    <p class="font-mono text-[var(--text-small)] text-[var(--color-muted)] mb-6">
+      <span class="bracket-count">Work</span>
+    </p>
+    <h1 class="font-[family-name:var(--font-display)] uppercase leading-[0.9] max-w-5xl"
+        style="font-size: var(--text-display);">
+      Two streams.<br />
+      One law.
+    </h1>
+  </section>
+
+  <!-- Category: Christian Education -->
+  <section class="px-[var(--space-gutter)] pb-24 border-t border-[var(--color-hairline)] pt-16">
+    <div class="grid md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-12 mb-16">
+      <div>
+        <p class="font-mono text-[var(--text-small)] text-[var(--color-vermillion)] mb-4 uppercase tracking-wider">
+          01 &middot; Category
+        </p>
+        <h2 class="font-[family-name:var(--font-display)] uppercase leading-[0.9]"
+            style="font-size: var(--text-h2);">
+          Christian<br />Education
+        </h2>
+      </div>
+    </div>
+
+    {education.length === 0 ? (
+      <p class="font-mono text-[var(--text-small)] uppercase tracking-wider text-[var(--color-muted)]">
+        [ In production &middot; First pieces coming soon ]
+      </p>
+    ) : (
+      <div class="grid md:grid-cols-2 gap-10 md:gap-14">
+        {education.map((project) => (
+          <VideoTile
+            videoId={project.videoId}
+            title={project.title}
+            duration={project.duration}
+            description={project.description}
+          />
+        ))}
+      </div>
+    )}
+  </section>
+
+  <!-- Category: Pastoral Care -->
+  <section class="px-[var(--space-gutter)] pb-24 border-t border-[var(--color-hairline)] pt-16">
+    <div class="grid md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-12 mb-16">
+      <div>
+        <p class="font-mono text-[var(--text-small)] text-[var(--color-vermillion)] mb-4 uppercase tracking-wider">
+          02 &middot; Category
+        </p>
+        <h2 class="font-[family-name:var(--font-display)] uppercase leading-[0.9]"
+            style="font-size: var(--text-h2);">
+          Pastoral<br />Care
+        </h2>
+      </div>
+    </div>
+
+    {pastoral.length === 0 ? (
+      <p class="font-mono text-[var(--text-small)] uppercase tracking-wider text-[var(--color-muted)]">
+        [ In production &middot; First pieces coming soon ]
+      </p>
+    ) : (
+      <div class="grid md:grid-cols-2 gap-10 md:gap-14">
+        {pastoral.map((project) => (
+          <VideoTile
+            videoId={project.videoId}
+            title={project.title}
+            duration={project.duration}
+            description={project.description}
+          />
+        ))}
+      </div>
+    )}
+  </section>
+
+  <!-- Closing CTA -->
+  <section class="px-[var(--space-gutter)] py-[clamp(4rem,10vw,9rem)] border-t border-[var(--color-hairline)]">
+    <p class="text-[var(--text-body)] leading-relaxed max-w-xl">
+      Have a story you need help telling? We&rsquo;d love to hear about it.
+    </p>
+    <a href="/contact"
+       class="inline-block mt-8 font-mono text-[var(--text-small)] uppercase tracking-wider border-b border-[var(--color-ink)] pb-0.5 hover:text-[var(--color-vermillion)] hover:border-[var(--color-vermillion)] transition-colors">
+      / Contact the studio
+    </a>
+  </section>
+</BaseLayout>
