@@ -20,6 +20,9 @@ const education = [
     director: DIR,
     editor: DP,
     year: 2026,
+    quote:
+      'The team did a great job of creating a story on film that captures the heartbeat of our ministry.',
+    quoteAttribution: 'Matt Vlahovich, Headmaster · Reign Christian Academy',
   },
 ];
 
@@ -43,6 +46,8 @@ const pastoral = [
     director: DIR,
     editor: DP,
     year: 2026,
+    quote: 'Once again, this is excellent.',
+    quoteAttribution: 'CEO · One Gospel',
   },
 ];
 ---
@@ -88,6 +93,8 @@ const pastoral = [
             director={project.director}
             editor={project.editor}
             year={project.year}
+            quote={project.quote}
+            quoteAttribution={project.quoteAttribution}
           />
         ))}
       </div>
@@ -123,6 +130,8 @@ const pastoral = [
             director={project.director}
             editor={project.editor}
             year={project.year}
+            quote={project.quote}
+            quoteAttribution={project.quoteAttribution}
           />
         ))}
       </div>
