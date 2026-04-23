@@ -30,8 +30,11 @@ const { title, description = 'The Oracles — where law and story meet.' } = Ast
     />
   </head>
   <body>
+    <!-- Skip link: first focusable element, visible only on keyboard focus.
+         Lets screen-reader and keyboard users jump past the nav. -->
+    <a href="#main" class="skip-link">Skip to main content</a>
     <Header />
-    <main>
+    <main id="main" tabindex="-1">
       <slot />
     </main>
     <Footer />

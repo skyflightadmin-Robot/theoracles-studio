@@ -78,7 +78,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         ></textarea>
       </label>
 
-      <p class="contact-error hidden font-mono text-[var(--text-small)] text-[var(--color-vermillion)]">
+      <p class="contact-error hidden font-mono text-[var(--text-small)] text-[var(--color-vermillion)]" role="alert" aria-live="polite">
         / Something broke on our end. Try again, or email
         <a href="mailto:hello@theoracles.studio" class="underline">hello@theoracles.studio</a>.
       </p>
@@ -92,7 +92,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </form>
 
     <!-- Inline success block. Revealed by JS when the fetch resolves OK. -->
-    <div class="contact-success hidden max-w-2xl">
+    <div class="contact-success hidden max-w-2xl" role="status" aria-live="polite">
       <p class="font-mono text-[var(--text-small)] text-[var(--color-vermillion)] mb-4 uppercase tracking-wider">
         / Message received
       </p>

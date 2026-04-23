@@ -60,10 +60,10 @@ const { variant = 'footer', className = '' } = Astro.props;
     </div>
   </form>
 
-  <p class="newsletter__success hidden mt-3 font-mono text-[var(--text-small)] text-[var(--color-muted)]">
+  <p class="newsletter__success hidden mt-3 font-mono text-[var(--text-small)] text-[var(--color-muted)]" role="status" aria-live="polite">
     / Thanks &mdash; you&rsquo;re on the list.
   </p>
-  <p class="newsletter__error hidden mt-3 font-mono text-[var(--text-small)] text-[var(--color-vermillion)]">
+  <p class="newsletter__error hidden mt-3 font-mono text-[var(--text-small)] text-[var(--color-vermillion)]" role="alert" aria-live="polite">
     / Something broke. Try again or email hello@theoracles.studio.
   </p>
 </div>

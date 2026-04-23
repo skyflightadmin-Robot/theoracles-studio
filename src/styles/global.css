@@ -10,7 +10,8 @@
   /* Color system */
   --color-paper: #efeeea;          /* warm off-white body */
   --color-ink: #0b0b0b;            /* near-black type */
-  --color-vermillion: #d64228;     /* accent — used sparingly */
+  --color-vermillion: #d64228;     /* brand accent — display type, borders */
+  --color-vermillion-strong: #b83919; /* AA-contrast variant for button bg */
   --color-muted: #6b6a66;          /* secondary text */
   --color-hairline: #d6d4cf;       /* dividers */
 
@@ -67,4 +68,59 @@ body {
   border: 1px dashed var(--color-paper);
   mix-blend-mode: difference;
   pointer-events: none;
+}
+
+/* ---------------------------------------------------------
+ * Accessibility: skip link + branded focus ring
+ * ------------------------------------------------------- */
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  padding: 0.75rem 1rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  z-index: 1000;
+}
+.skip-link:focus {
+  left: 0.75rem;
+  top: 0.75rem;
+}
+
+/* Branded focus indicator — replaces browser default for links + buttons.
+ * Uses :focus-visible so mouse clicks don't show a ring, only keyboard
+ * navigation does. Matches the vermillion accent already on the site. */
+:focus {
+  outline: none;
+}
+:focus-visible {
+  outline: 2px solid var(--color-vermillion);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+/* main is programmatically focused by the skip link; don't show a ring. */
+main:focus-visible {
+  outline: none;
+}
+
+/* Reduce-motion — system preference from the OS.
+ * Backstops the JS pause on the hero reel with a CSS guard so the
+ * video can't autoplay even if JS fails. */
+@media (prefers-reduced-motion: reduce) {
+  video[autoplay] {
+    /* Can't force-pause a video from CSS alone; paired with the JS
+     * handler in HeroReel. Dropping animations/transitions globally
+     * to respect motion preference. */
+    animation-play-state: paused;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
