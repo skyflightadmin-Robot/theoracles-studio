@@ -12,9 +12,20 @@ interface Props {
   title: string;
   duration?: string; // ISO 8601, e.g. "PT1M34S"
   description?: string;
+  // Per-project credits. Displayed in a single mono line under the
+  // description; any missing field is dropped from the line.
+  director?: string;
+  editor?: string; // DP / Editor
+  year?: number;
 }
 
-const { videoId, title, duration, description } = Astro.props;
+const { videoId, title, duration, description, director, editor, year } = Astro.props;
+
+const creditsParts: string[] = [];
+if (director) creditsParts.push(`Dir. ${director}`);
+if (editor) creditsParts.push(`DP/Ed. ${editor}`);
+if (year) creditsParts.push(String(year));
+const creditsLine = creditsParts.join(' · ');
 
 // ISO 8601 → "m:ss"
 function formatDuration(iso?: string) {
@@ -65,6 +76,11 @@ const thumbnail = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
     {description && (
       <p class="mt-3 text-[var(--color-muted)] leading-relaxed max-w-prose">
         {description}
+      </p>
+    )}
+    {creditsLine && (
+      <p class="mt-4 font-mono text-[var(--text-small)] uppercase tracking-wider text-[var(--color-muted)]">
+        {creditsLine}
       </p>
     )}
   </div>

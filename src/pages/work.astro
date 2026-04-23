@@ -5,13 +5,21 @@ import VideoTile from '../components/VideoTile.astro';
 // Portfolio entries grouped by category.
 // Metadata pulled from YouTube (og:title, og:description, itemprop:duration).
 // Add new entries by pushing objects into the matching array.
+// Shared credits. Every piece is currently directed by Dabe and shot/cut
+// by Aaron; pull this out to avoid repeating it on every entry.
+const DIR = 'Dabe Searcy';
+const DP = 'Aaron Sanford';
+
 const education = [
   {
     videoId: 'MLUgXhiouTE',
     title: 'Reign Christian Academy',
     duration: 'PT1M34S',
     description:
-      'Reign Christian Academy welcomes all students to find joy and opportunity through an affordable and personalized classical education.',
+      'When you’re telling new families who you are, showing beats telling. A day at Reign, letting the place speak for itself.',
+    director: DIR,
+    editor: DP,
+    year: 2026,
   },
 ];
 
@@ -21,14 +29,20 @@ const pastoral = [
     title: "Pastor's Monday — Colorado Chapter",
     duration: 'PT1M36S',
     description:
-      "A reservoir, not a canal. Bernard's exhortation to pastors, set to story.",
+      'When your ministry serves pastors who lead out in God’s creation, a video has to show, not tell. A reservoir, not a canal — Bernard’s exhortation, on the water.',
+    director: DIR,
+    editor: DP,
+    year: 2026,
   },
   {
     videoId: 'zTyhAaXmdnw',
     title: '2026 The Gathering — One Gospel',
     duration: 'PT1M31S',
     description:
-      'One Gospel encouraging pastors, staff, and lay leaders to come and enjoy each other at their annual gathering.',
+      'When you’re inviting pastors into a room, a headline won’t get them there. One Gospel’s annual gathering, set to the faces in it.',
+    director: DIR,
+    editor: DP,
+    year: 2026,
   },
 ];
 ---
@@ -71,6 +85,9 @@ const pastoral = [
             title={project.title}
             duration={project.duration}
             description={project.description}
+            director={project.director}
+            editor={project.editor}
+            year={project.year}
           />
         ))}
       </div>
@@ -103,6 +120,9 @@ const pastoral = [
             title={project.title}
             duration={project.duration}
             description={project.description}
+            director={project.director}
+            editor={project.editor}
+            year={project.year}
           />
         ))}
       </div>
