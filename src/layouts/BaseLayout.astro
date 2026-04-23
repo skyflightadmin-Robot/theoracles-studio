@@ -6,9 +6,37 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  /* OG image path relative to the site root. Defaults to the branded card. */
+  ogImage?: string;
 }
 
-const { title, description = 'The Oracles — where law and story meet.' } = Astro.props;
+const SITE = 'https://theoracles.studio';
+const DEFAULT_DESC = 'The Oracles — a small nonprofit studio telling stories that promote the goodness of God’s law.';
+
+const { title, description = DEFAULT_DESC, ogImage = '/og/default.jpg' } = Astro.props;
+
+// Build the canonical URL from the current request path so every page
+// self-identifies to search engines and social scrapers.
+const canonicalUrl = new URL(Astro.url.pathname, SITE).toString();
+const ogImageUrl = new URL(ogImage, SITE).toString();
+
+// JSON-LD organization schema. Helps Google render a knowledge panel
+// and tells crawlers this is a nonprofit studio, not a business.
+const orgJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'NGO',
+  name: 'The Oracles',
+  alternateName: 'The Oracles Studio',
+  url: SITE,
+  logo: `${SITE}/og/default.jpg`,
+  description: DEFAULT_DESC,
+  sameAs: [
+    'https://x.com/oracles_studio',
+    'https://www.instagram.com/theoracles.studio/',
+    'https://www.youtube.com/@theoracles.studio',
+  ],
+  email: 'hello@theoracles.studio',
+};
 ---
 
 <!doctype html>
@@ -20,6 +48,29 @@ const { title, description = 'The Oracles — where law and story meet.' } = Ast
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph (iMessage, Slack, Facebook, LinkedIn link previews) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="The Oracles" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="The Oracles — where law and story meet." />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@oracles_studio" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- JSON-LD: identify the org to Google for rich results / knowledge panel -->
+    <script type="application/ld+json" set:html={JSON.stringify(orgJsonLd)} />
 
     <!-- Google Fonts: Archivo Black + Inter + IBM Plex Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
