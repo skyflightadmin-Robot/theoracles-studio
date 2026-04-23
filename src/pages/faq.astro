@@ -1,0 +1,161 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Q&A content sourced from the Apr 23 copy workshop. Each question gets
+// its own numbered section matching the [ 01 ] motif used across the
+// site. Outline items in answer 3 render as an editorial list.
+//
+// Two links are wired: Q2 → /contact (candidate outreach), and Q5 →
+// the GivingFuel URL (direct giving path). The 501(c)(3) wording in
+// Q5 credits Urban Skye as the processing nonprofit to match the
+// Support section on the home page — The Oracles operates under
+// Urban Skye rather than holding its own 501(c)(3) determination.
+
+const questions = [
+  {
+    q: 'What is The Oracles, and why does this work exist?',
+    a: [
+      { type: 'p', text: 'The Oracles exists because we believe Christians should love, steward, and ultimately lead in the arts. That&rsquo;s not the case now. Our screens are filled with material, done very well, that often promotes agendas, ideas, and principles that run counter to the way God has ordered the world. We began this project with the conviction that Jesus owns the arts, not the culture.' },
+    ],
+  },
+  {
+    q: 'Who is a good candidate to be featured?',
+    a: [
+      { type: 'p', text: 'People who believe deeply in what they&rsquo;re doing, see their work as a promotion of God&rsquo;s good law and character, and want to tell that story on film. What they often lack is the resources to do it well. If that sounds like you or an organization you know, we&rsquo;d like to hear from you.' },
+      { type: 'cta', text: '/ Contact the studio', href: '/contact' },
+    ],
+  },
+  {
+    q: 'What does the process look like, from first conversation to finished film?',
+    a: [
+      { type: 'p', text: 'We begin with a pre-production consultation, where we set:' },
+      { type: 'ul', items: [
+        'Timelines',
+        'Goals',
+        'Target audience and platform',
+        'A clear picture of the story you want to tell',
+      ]},
+      { type: 'p', text: 'From there we schedule production, then move into post with defined deadlines for edits and review rounds. You&rsquo;re a collaborator at every step.' },
+    ],
+  },
+  {
+    q: 'Is there a cost to the subject, and how is the work funded?',
+    a: [
+      { type: 'p', text: 'Small film production carries a significant cost in time and equipment. Our clients don&rsquo;t pay it. Every project is underwritten by donors, grants, and partnerships, so the story (not the budget) drives the work.' },
+    ],
+  },
+  {
+    q: 'How can donors support the work, and where does the money go?',
+    a: [
+      { type: 'p', text: 'Good film production is expensive. Most of our projects come in under industry standard and still deliver professional editing, color grading, and gear (cameras, lighting, lenses, microphones) at the level the story deserves. Donors are what make that possible. They enable us to offer studio-caliber support to people and organizations who otherwise couldn&rsquo;t access it.' },
+      { type: 'p', text: 'Contributions are processed by Urban Skye, a U.S. 501(c)(3) nonprofit, and are tax-deductible to the fullest extent allowed by law.' },
+      { type: 'cta', text: '/ Give →', href: 'https://urbanskye.givingfuel.com/aaron-sanford', external: true },
+    ],
+  },
+  {
+    q: 'Who owns the final film, and how is it shared?',
+    a: [
+      { type: 'p', text: 'The Oracles retains the rights so we can steward each film long-term: festivals, educational use, archives, and distribution through our channels. Clients also receive non-copy-protected originals to distribute as they please. Our goal is simple. The story reaches the people who most need to see it.' },
+    ],
+  },
+];
+
+// FAQPage schema.org JSON-LD. Google uses this to show the Q&A as an
+// expandable rich result in search. Plain text only, no markup.
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: questions.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: a
+        .map((part) => {
+          if (part.type === 'p') return part.text.replace(/&rsquo;/g, '’').replace(/<[^>]+>/g, '');
+          if (part.type === 'ul') return part.items.join('. ');
+          return '';
+        })
+        .filter(Boolean)
+        .join(' ')
+        .trim(),
+    },
+  })),
+};
+---
+
+<BaseLayout
+  title="FAQ — The Oracles"
+  description="Answers to the questions we get most about The Oracles: why the studio exists, who gets featured, what the process looks like, how the work is funded, and who owns the final film."
+>
+  <!-- Page header -->
+  <section class="px-[var(--space-gutter)] pt-[clamp(4rem,10vw,9rem)] pb-[clamp(2rem,6vw,5rem)]">
+    <p class="font-mono text-[var(--text-small)] text-[var(--color-muted)] mb-6">
+      <span class="bracket-count">FAQ</span>
+    </p>
+    <h1 class="font-[family-name:var(--font-display)] uppercase leading-[0.9] max-w-5xl"
+        style="font-size: var(--text-display);">
+      Before you ask.
+    </h1>
+    <p class="mt-10 max-w-2xl text-[var(--text-body)] leading-relaxed">
+      The questions we get most, answered in one place. If something
+      isn&rsquo;t covered, contact the studio and we&rsquo;ll pick it up
+      from there.
+    </p>
+  </section>
+
+  <!-- Numbered Q&A stack. Each item mirrors the [ 01 ] / section-heading
+       pattern used elsewhere on the site. -->
+  <section class="px-[var(--space-gutter)] pb-[clamp(5rem,12vw,10rem)]">
+    <div class="max-w-4xl divide-y divide-[var(--color-hairline)]">
+      {questions.map((item, i) => (
+        <article class="py-14 first:pt-0">
+          <p class="font-mono text-[var(--text-small)] text-[var(--color-vermillion)] mb-4 uppercase tracking-wider">
+            <span class="bracket-count">{String(i + 1).padStart(2, '0')}</span>
+          </p>
+          <h2 class="font-[family-name:var(--font-display)] uppercase leading-[1.05]"
+              style="font-size: var(--text-h2);">
+            {item.q}
+          </h2>
+          <div class="mt-8 space-y-6 max-w-3xl text-[var(--text-body)] leading-relaxed">
+            {item.a.map((part) => {
+              if (part.type === 'p') {
+                return <p set:html={part.text} />;
+              }
+              if (part.type === 'ul') {
+                return (
+                  <ul class="list-none pl-0 space-y-2 font-mono text-[var(--text-small)] uppercase tracking-wider text-[var(--color-muted)]">
+                    {part.items.map((li) => (
+                      <li class="flex gap-3">
+                        <span aria-hidden="true" class="text-[var(--color-vermillion)]">/</span>
+                        <span>{li}</span>
+                      </li>
+                    ))}
+                  </ul>
+                );
+              }
+              if (part.type === 'cta') {
+                return (
+                  <p>
+                    <a
+                      href={part.href}
+                      target={part.external ? '_blank' : undefined}
+                      rel={part.external ? 'noopener' : undefined}
+                      class="inline-block font-mono text-[var(--text-small)] uppercase tracking-wider border-b border-[var(--color-ink)] pb-0.5 hover:text-[var(--color-vermillion)] hover:border-[var(--color-vermillion)] transition-colors"
+                    >
+                      {part.text}
+                    </a>
+                  </p>
+                );
+              }
+              return null;
+            })}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- FAQPage structured data — additive to the org JSON-LD from BaseLayout. -->
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+</BaseLayout>
