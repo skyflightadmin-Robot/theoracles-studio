@@ -56,33 +56,110 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
       </div>
 
-      <!-- Who -->
+      <!-- How we got here — origin story -->
       <div>
         <p class="font-mono text-[var(--text-small)] text-[var(--color-vermillion)] mb-4 uppercase tracking-wider">
-          Who are we?
+          How we got here
         </p>
-        <div class="space-y-8">
-          <div class="flex gap-6 items-baseline">
-            <p class="font-[family-name:var(--font-display)] uppercase text-[var(--text-h3)] shrink-0">
+        <div class="space-y-6 text-[var(--text-body)] leading-relaxed">
+          <p>
+            Two friends, more than a decade in.
+          </p>
+          <p>
+            One had been trying to share the beauty of God&rsquo;s world and
+            kept struggling to find the form. The other had been living in
+            that beauty and hadn&rsquo;t seen it as clearly as he&rsquo;d
+            thought. We needed each other to see it, and we needed each
+            other to share it.
+          </p>
+          <p>
+            What looked like two halves of a split thing — God knit back
+            together in The Oracles.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who — expanded with complementary dynamic + headshots.
+       Images expected at /images/dabe.jpg and /images/aaron.jpg (1:1 crop,
+       warm/natural tone to match the hero reel grade). If missing, the
+       tiles still render with a dark placeholder block. -->
+  <section class="px-[var(--space-gutter)] pb-24">
+    <div class="max-w-5xl">
+      <p class="font-mono text-[var(--text-small)] text-[var(--color-vermillion)] mb-4 uppercase tracking-wider">
+        Who are we?
+      </p>
+      <p class="max-w-3xl text-[var(--text-body)] leading-relaxed mb-12">
+        Aaron is technical — obsessed with the details. Dabe barely notices
+        the details, but knows exactly how they&rsquo;ll make you feel. We
+        need each other to make anything at all.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-10 md:gap-16">
+        <figure>
+          <div class="aspect-[4/5] bg-[var(--color-ink)] overflow-hidden">
+            <img
+              src="/images/dabe.jpg"
+              alt="Dabe Searcy"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <figcaption class="mt-5">
+            <p class="font-[family-name:var(--font-display)] uppercase text-[var(--text-h3)] leading-none mb-3">
               Dabe
             </p>
             <p class="text-[var(--text-body)] leading-relaxed">
               A seasoned illustrator who acts as the director, creative
               influence, and primary storyteller.
             </p>
+          </figcaption>
+        </figure>
+
+        <figure>
+          <div class="aspect-[4/5] bg-[var(--color-ink)] overflow-hidden">
+            <img
+              src="/images/aaron.jpg"
+              alt="Aaron Sanford"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
           </div>
-          <div class="flex gap-6 items-baseline">
-            <p class="font-[family-name:var(--font-display)] uppercase text-[var(--text-h3)] shrink-0">
+          <figcaption class="mt-5">
+            <p class="font-[family-name:var(--font-display)] uppercase text-[var(--text-h3)] leading-none mb-3">
               Aaron
             </p>
             <p class="text-[var(--text-body)] leading-relaxed">
-              A former pastor who functions as the DP/Editor to bring
-              the vision to life.
+              A former pastor who functions as the DP/Editor to bring the
+              vision to life.
             </p>
-          </div>
-        </div>
+          </figcaption>
+        </figure>
       </div>
     </div>
+  </section>
+
+  <!-- What we love — closing mission statement, oversized display type.
+       Sits right before Psalm 1 so the two texture blocks play off each
+       other: our declaration, then Scripture's. -->
+  <section class="px-[var(--space-gutter)] py-[clamp(5rem,11vw,9rem)] border-t border-[var(--color-hairline)]">
+    <p class="font-mono text-[var(--text-small)] text-[var(--color-vermillion)] mb-10 uppercase tracking-wider">
+      What we love
+    </p>
+    <p class="font-[family-name:var(--font-display)] uppercase leading-[0.95] max-w-5xl"
+       style="font-size: var(--text-h1);">
+      We love God. His law.<br />
+      The beauty all around.
+    </p>
+    <p class="mt-10 max-w-2xl text-[var(--text-body)] leading-relaxed">
+      We&rsquo;re trying hard to share that with the rest of the world.
+      That&rsquo;s what it means to fulfill the creation mandate.
+    </p>
+    <a href="/contact"
+       class="inline-block mt-10 font-mono text-[var(--text-small)] uppercase tracking-wider border-b border-[var(--color-ink)] pb-0.5 hover:text-[var(--color-vermillion)] hover:border-[var(--color-vermillion)] transition-colors">
+      / Got a story? Contact the studio
+    </a>
   </section>
 
   <!-- Psalm 1 — full-bleed typographic display.
