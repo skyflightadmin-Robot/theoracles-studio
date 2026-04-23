@@ -4,6 +4,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 // Netlify Forms: data-netlify="true" on a POST form is all Netlify needs.
 // The hidden form-name field is required for the build-time form detection.
 // After launch, submissions show up in the Netlify dashboard under Forms.
+//
+// Submit UX: an inline JS handler intercepts the submit, POSTs via fetch,
+// and swaps the form for a branded success block — so visitors don't get
+// kicked to Netlify's default gray success page. If JS fails, the form
+// still submits normally and Netlify's default success page is the
+// fallback (ugly but functional).
 ---
 
 <BaseLayout title="Contact — The Oracles">
@@ -24,13 +30,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <!-- Netlify-backed contact form. Editorial, lots of whitespace,
        input lines only (no boxed fields). -->
-  <section class="px-[var(--space-gutter)] pb-[clamp(5rem,12vw,10rem)]">
+  <section class="px-[var(--space-gutter)] pb-[clamp(5rem,12vw,10rem)]" data-contact-wrap>
     <form
       name="contact"
       method="POST"
       data-netlify="true"
       netlify-honeypot="bot-field"
-      class="max-w-2xl space-y-10"
+      novalidate
+      class="max-w-2xl space-y-10 contact-form"
     >
       <input type="hidden" name="form-name" value="contact" />
       <p class="hidden">
@@ -71,12 +78,77 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         ></textarea>
       </label>
 
+      <p class="contact-error hidden font-mono text-[var(--text-small)] text-[var(--color-vermillion)]">
+        / Something broke on our end. Try again, or email
+        <a href="mailto:hello@theoracles.studio" class="underline">hello@theoracles.studio</a>.
+      </p>
+
       <button
         type="submit"
-        class="font-mono text-[var(--text-small)] uppercase tracking-wider border-b-2 border-[var(--color-ink)] pb-1 hover:text-[var(--color-vermillion)] hover:border-[var(--color-vermillion)] transition-colors"
+        class="contact-submit font-mono text-[var(--text-small)] uppercase tracking-wider border-b-2 border-[var(--color-ink)] pb-1 hover:text-[var(--color-vermillion)] hover:border-[var(--color-vermillion)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         / Send
       </button>
     </form>
+
+    <!-- Inline success block. Revealed by JS when the fetch resolves OK. -->
+    <div class="contact-success hidden max-w-2xl">
+      <p class="font-mono text-[var(--text-small)] text-[var(--color-vermillion)] mb-4 uppercase tracking-wider">
+        / Message received
+      </p>
+      <h2 class="font-[family-name:var(--font-display)] uppercase leading-[0.95] max-w-4xl"
+          style="font-size: var(--text-h1);">
+        Thanks &mdash;<br />we heard you.
+      </h2>
+      <p class="mt-8 text-[var(--text-body)] leading-relaxed">
+        We read everything that lands in the studio inbox.
+        We&rsquo;ll be in touch.
+      </p>
+    </div>
   </section>
+
+  <script>
+    /* Progressive-enhancement submit handler for the contact form.
+     * Intercepts submit, POSTs via fetch, swaps the form for an inline
+     * success block. Falls back to a standard POST + Netlify redirect
+     * if JS fails. Disables the button during flight to prevent
+     * double-submits, and does the minimum required-field check since
+     * we added `novalidate` to suppress the browser's default tooltips. */
+    const form = document.querySelector<HTMLFormElement>('form.contact-form');
+    const wrap = document.querySelector<HTMLElement>('[data-contact-wrap]');
+    const success = wrap?.querySelector<HTMLElement>('.contact-success');
+    const errorMsg = wrap?.querySelector<HTMLElement>('.contact-error');
+    const submitBtn = wrap?.querySelector<HTMLButtonElement>('.contact-submit');
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorMsg?.classList.add('hidden');
+
+      const emailInput = form.querySelector<HTMLInputElement>('input[name="email"]');
+      if (emailInput && !emailInput.checkValidity()) {
+        emailInput.focus();
+        errorMsg?.classList.remove('hidden');
+        if (errorMsg) errorMsg.textContent = '/ We need a valid email before we can reply.';
+        return;
+      }
+
+      if (submitBtn) submitBtn.disabled = true;
+
+      const data = new FormData(form);
+      const body = new URLSearchParams();
+      data.forEach((v, k) => body.append(k, v.toString()));
+
+      try {
+        const res = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body.toString() });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        form.classList.add('hidden');
+        success?.classList.remove('hidden');
+        success?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } catch (err) {
+        console.error('Contact submit failed', err);
+        if (submitBtn) submitBtn.disabled = false;
+        errorMsg?.classList.remove('hidden');
+      }
+    });
+  </script>
 </BaseLayout>
