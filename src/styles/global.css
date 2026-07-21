@@ -61,7 +61,10 @@ h1, h2, h3 { font-weight: normal; margin: 0; }
 .slash-nav { display: flex; flex-wrap: wrap; align-items: center; }
 /* padding-block keeps each link's tap target >=24px without changing the layout rhythm */
 .slash-nav a { text-decoration: none; transition: color 0.2s ease; display: inline-block; padding-block: 0.45em; }
-.slash-nav a + a::before { content: "/"; color: var(--color-muted); margin: 0 0.55em; display: inline-block; }
+/* display:inline-block makes the slash an atomic box, so the aria-current
+   underline never extends over the separator — every page's underline hugs
+   just its label, exactly like Church (the first link, which has no slash). */
+.slash-nav a + a::before { content: "/"; color: var(--color-muted); margin: 0 0.55em; display: inline-block; text-decoration: none; }
 /* Distinguish the 5 spheres from the 2 utility links (About, Contact):
    a hairline divider before About + muted color on the pair. */
 .slash-nav a:nth-last-child(-n+3) { color: var(--color-muted); }
@@ -78,7 +81,10 @@ h1, h2, h3 { font-weight: normal; margin: 0; }
 .slash-nav a:hover { color: var(--color-vermillion-strong); }
 /* Current page is marked by an underline as well as colour, so it doesn't rely
    on colour alone (WCAG 1.4.1). */
-.slash-nav a[aria-current="page"] { color: var(--color-vermillion-strong); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+/* Underline lives on the label span, not the anchor, so it can never extend
+   over the "/" separator box — identical underline width on every page. */
+.slash-nav a[aria-current="page"] { color: var(--color-vermillion-strong); }
+.slash-nav a[aria-current="page"] .nav-label { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
 .year-marker { color: var(--color-muted); display: none; }
 @media (min-width: 640px) { .site-header__row { flex-direction: row; align-items: center; justify-content: space-between; gap: 1.5rem; } .wordmark { font-size: 1.25rem; } }
 @media (min-width: 1024px) { .year-marker { display: block; } }
