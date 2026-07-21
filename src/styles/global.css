@@ -187,6 +187,8 @@ h1, h2, h3 { font-weight: normal; margin: 0; }
 .tile__frame::after { content: ""; position: absolute; inset: 12px; border: 1px dashed rgba(239,238,234,0.4); pointer-events: none; }
 .tile__embed { aspect-ratio: 16 / 9; background: var(--color-ink); }
 .tile__embed iframe { width: 100%; height: 100%; border: 0; display: block; }
+/* Unreleased-work tile: same black frame, vermillion status tag, not clickable. */
+.tile__tag { background: var(--color-vermillion-strong); color: var(--color-paper); padding: 0.4rem 0.9rem; letter-spacing: 0.08em; }
 .tile__meta { margin-top: 1rem; }
 .tile__title { font-family: var(--font-display); text-transform: uppercase; font-size: 1.25rem; line-height: 1; margin: 0 0 0.5rem; }
 .tile__desc { font-size: var(--text-body); line-height: 1.5; color: var(--color-muted); margin: 0; }
