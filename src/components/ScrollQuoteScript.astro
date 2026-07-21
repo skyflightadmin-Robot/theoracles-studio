@@ -1,0 +1,54 @@
+---
+// Scroll-scrubbed, word-by-word quote reveal (from Mockup v2).
+// Each word's opacity and rise is a function of the quote's scroll position,
+// so it plays forward on the way down and reverses on the way back up.
+// Reduced-motion shows it whole.
+---
+
+<script is:inline>
+  (function () {
+    var quotes = Array.prototype.slice.call(document.querySelectorAll('.scroll-quote'));
+    if (!quotes.length) return;
+
+    quotes.forEach(function (q) {
+      var bq = q.querySelector('blockquote');
+      if (!bq) return;
+      var words = bq.textContent.trim().split(/\s+/);
+      bq.textContent = '';
+      q._words = words.map(function (w, i) {
+        var span = document.createElement('span');
+        span.className = 'w';
+        span.textContent = w;
+        bq.appendChild(span);
+        if (i < words.length - 1) bq.appendChild(document.createTextNode(' '));
+        return span;
+      });
+      q._cap = q.querySelector('figcaption');
+    });
+
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
+    var ticking = false;
+    function render() {
+      ticking = false;
+      var vh = window.innerHeight;
+      quotes.forEach(function (q) {
+        var rect = q.getBoundingClientRect();
+        var p = clamp((vh - rect.top) / (vh * 0.55), 0, 1);
+        var N = q._words.length, reveal = p * (N + 3), i, wt, s;
+        for (i = 0; i < N; i++) {
+          wt = clamp(reveal - i, 0, 1);
+          s = q._words[i];
+          s.style.opacity = wt;
+          s.style.transform = 'translateY(' + ((1 - wt) * 0.45).toFixed(3) + 'em)';
+        }
+        if (q._cap) q._cap.style.opacity = clamp((p - 0.7) / 0.3, 0, 1);
+      });
+    }
+    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(render); } }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    render();
+  })();
+</script>

@@ -1,185 +1,106 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout
   title="About — The Oracles"
-  description="Two friends making short films for the church. Dabe directs and holds the story; Aaron shoots and cuts. A small studio with a specific mission: imprint the good, beautiful, and true nature of the law of God."
+  description="One studio, one law. We tell the truth as a story across every aspect of life: church, state, family, market, and the individual."
+  path="/about"
 >
-  <!-- Page header -->
-  <section class="px-[var(--space-gutter)] pt-[clamp(4rem,10vw,9rem)] pb-[clamp(2rem,6vw,5rem)]">
-    <p class="font-mono text-[var(--text-small)] text-[var(--color-muted)] mb-6">
-      <span class="bracket-count">About</span>
-    </p>
-    <h1 class="font-[family-name:var(--font-display)] uppercase leading-[0.9] max-w-5xl"
-        style="font-size: var(--text-display);">
-      A small studio,<br />
-      a specific mission.
-    </h1>
+  <section class="vhero">
+    <p class="eyebrow">About</p>
+    <h1 class="vhero__title">One&nbsp;law,<br />one <span class="accent">aim.</span></h1>
   </section>
 
-  <!-- Three-part about body, editorial two-column feel -->
-  <section class="px-[var(--space-gutter)] pb-24">
-    <div class="max-w-3xl space-y-20">
-      <!-- What -->
+  <section class="section section--tight">
+    <div class="measure" style="display:flex; flex-direction:column; gap:3.5rem;">
       <div>
-        <p class="font-mono text-[var(--text-small)] text-[var(--color-vermillion)] mb-4 uppercase tracking-wider">
-          What is The Oracles?
+        <p class="eyebrow vermillion">What is The Oracles?</p>
+        <p class="lead">
+          We&rsquo;re a studio that does our best to orient ourselves around the
+          beauty of God&rsquo;s law and the weight of a good story.
         </p>
-        <div class="space-y-6 text-[var(--text-body)] leading-relaxed">
-          <p>
-            We&rsquo;re a small nonprofit studio telling stories that promote
-            the goodness of God&rsquo;s law.
-          </p>
-          <p>
-            The name has its roots in the Hebrew word
-            <span class="font-[family-name:var(--font-display)] text-[var(--color-ink)]" dir="rtl">מַשָּׂא</span>
-            <span class="text-[var(--color-muted)]">(pronounced <em>mas-saw</em>)</span>.
-            <span class="font-[family-name:var(--font-display)]" dir="rtl">מַשָּׂא</span>
-            is used about a dozen times in Isaiah to introduce a word from God.
-          </p>
-        </div>
+        <p class="lead">
+          Our name has its roots in the Hebrew word <span dir="rtl" style="font-family:var(--font-display); font-size:1.4em;">מַשָּׂא</span>
+          <span class="muted">(pronounced <em>mas-saw</em>)</span>, used about a
+          dozen times in Isaiah to introduce a word from God: a burden, a
+          pronouncement, an oracle.
+        </p>
       </div>
 
-      <!-- Why -->
       <div>
-        <p class="font-mono text-[var(--text-small)] text-[var(--color-vermillion)] mb-4 uppercase tracking-wider">
-          Why law and story?
+        <p class="eyebrow vermillion">One law, all of life</p>
+        <p class="lead">
+          God&rsquo;s law orders every aspect of life, and each element has its
+          own expression.
         </p>
-        <div class="space-y-6 text-[var(--text-body)] leading-relaxed">
-          <p>
-            We believe a large part of the Christian church has lost its
-            love for the arts and for God&rsquo;s law.
-          </p>
-          <p>
-            As a studio we use the visual arts to tell stories that are
-            designed to imprint the good, beautiful, and true nature of
-            the law of God.
-          </p>
-        </div>
+        <p class="lead">
+          Every part of our life has a story connected to the way God made
+          things to work, His law.
+        </p>
+        <p class="lead" style="margin-top:0.5rem;">
+          <strong>Church</strong>: Redemption &amp; Revelation. &nbsp;
+          <strong>State</strong>: We the People. &nbsp;
+          <strong>Market</strong>: A Collective Garden. &nbsp;
+          <strong>Family</strong>: Foundation of Society. &nbsp;
+          <strong>Individual</strong>: Self Government.
+        </p>
+        <p class="lead" style="margin-top:1rem;">
+          A ministry film, a campaign, a wedding, a construction site, a personal
+          struggle. They look unrelated, but they share a core truth: they
+          flourish when operating consistently with the way things are.
+          That&rsquo;s the story we want to tell.
+        </p>
       </div>
 
-      <!-- How we got here — origin story -->
       <div>
-        <p class="font-mono text-[var(--text-small)] text-[var(--color-vermillion)] mb-4 uppercase tracking-wider">
-          How we got here
+        <p class="eyebrow vermillion">How we got here</p>
+        <p class="lead">Two friends, more than a decade in.</p>
+        <p class="lead">
+          One had been trying to share the beauty of God&rsquo;s world and kept
+          struggling to find the form. The other had been living in that beauty
+          and hadn&rsquo;t seen it as clearly as he&rsquo;d thought. We needed each
+          other to see it, and we needed each other to share it.
         </p>
-        <div class="space-y-6 text-[var(--text-body)] leading-relaxed">
-          <p>
-            Two friends, more than a decade in.
-          </p>
-          <p>
-            One had been trying to share the beauty of God&rsquo;s world and
-            kept struggling to find the form. The other had been living in
-            that beauty and hadn&rsquo;t seen it as clearly as he&rsquo;d
-            thought. We needed each other to see it, and we needed each
-            other to share it.
-          </p>
-          <p>
-            What looked like two halves of a split thing — God knit back
-            together in The Oracles.
-          </p>
-        </div>
+        <p class="lead">
+          What looked like two halves of a split thing, God knit back together in
+          The Oracles.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- Who — expanded with complementary dynamic + headshots.
-       Images expected at /images/dabe.jpg and /images/aaron.jpg (1:1 crop,
-       warm/natural tone to match the hero reel grade). If missing, the
-       tiles still render with a dark placeholder block. -->
-  <section class="px-[var(--space-gutter)] pb-24">
-    <div class="max-w-5xl">
-      <p class="font-mono text-[var(--text-small)] text-[var(--color-vermillion)] mb-4 uppercase tracking-wider">
-        Who are we?
-      </p>
-      <p class="max-w-3xl text-[var(--text-body)] leading-relaxed mb-12">
-        Aaron is technical — obsessed with the details. Dabe barely notices
-        the details, but knows exactly how they&rsquo;ll make you feel. We
-        need each other to make anything at all.
-      </p>
-
-      <div class="grid md:grid-cols-2 gap-10 md:gap-16">
-        <figure>
-          <div class="aspect-[4/5] bg-[var(--color-ink)] overflow-hidden">
-            <img
-              src="/images/dabe.jpg"
-              alt="Dabe Searcy"
-              class="w-full h-full object-cover"
-              loading="lazy"
-            />
-          </div>
-          <figcaption class="mt-5">
-            <p class="font-[family-name:var(--font-display)] uppercase text-[var(--text-h3)] leading-none mb-3">
-              Dabe
-            </p>
-            <p class="text-[var(--text-body)] leading-relaxed">
-              A seasoned illustrator who acts as the director, creative
-              influence, and primary storyteller.
-            </p>
-          </figcaption>
-        </figure>
-
-        <figure>
-          <div class="aspect-[4/5] bg-[var(--color-ink)] overflow-hidden">
-            <img
-              src="/images/aaron.jpg"
-              alt="Aaron Sanford"
-              class="w-full h-full object-cover"
-              loading="lazy"
-            />
-          </div>
-          <figcaption class="mt-5">
-            <p class="font-[family-name:var(--font-display)] uppercase text-[var(--text-h3)] leading-none mb-3">
-              Aaron
-            </p>
-            <p class="text-[var(--text-body)] leading-relaxed">
-              A former pastor who functions as the DP/Editor to bring the
-              vision to life.
-            </p>
-          </figcaption>
-        </figure>
-      </div>
+  <section class="section rule-top">
+    <p class="eyebrow vermillion">Who we are</p>
+    <p class="lead measure">
+      Aaron is technical, obsessed with the details. Dabraham barely notices the
+      details, but knows exactly how they&rsquo;ll make you feel. We need each
+      other to make anything at all.
+    </p>
+    <div class="two-up measure-wide">
+      <figure style="margin:0;">
+        <div class="person__photo"><img src="/images/dabe.jpg" alt="Dabraham Searcy" loading="lazy" /></div>
+        <figcaption>
+          <p class="person__name">Dabraham</p>
+          <p class="lead">A seasoned illustrator who directs, the creative influence and primary storyteller.</p>
+        </figcaption>
+      </figure>
+      <figure style="margin:0;">
+        <div class="person__photo"><img src="/images/aaron.jpg" alt="Aaron Sanford" loading="lazy" /></div>
+        <figcaption>
+          <p class="person__name">Aaron</p>
+          <p class="lead">A former pastor who shoots and cuts, the DP/editor who brings the vision to life.</p>
+        </figcaption>
+      </figure>
     </div>
   </section>
 
-  <!-- What we love — closing mission statement, oversized display type.
-       Sits right before Psalm 1 so the two texture blocks play off each
-       other: our declaration, then Scripture's. -->
-  <section class="px-[var(--space-gutter)] py-[clamp(5rem,11vw,9rem)] border-t border-[var(--color-hairline)]">
-    <p class="font-mono text-[var(--text-small)] text-[var(--color-vermillion)] mb-10 uppercase tracking-wider">
-      What we love
-    </p>
-    <p class="font-[family-name:var(--font-display)] uppercase leading-[0.95] max-w-5xl"
-       style="font-size: var(--text-h1);">
-      We love God. His law.<br />
-      The beauty all around.
-    </p>
-    <p class="mt-10 max-w-2xl text-[var(--text-body)] leading-relaxed">
-      We&rsquo;re trying hard to share that with the rest of the world.
-      That&rsquo;s what it means to fulfill the creation mandate.
-    </p>
-    <a href="/contact"
-       class="inline-block mt-10 font-mono text-[var(--text-small)] uppercase tracking-wider border-b border-[var(--color-ink)] pb-0.5 hover:text-[var(--color-vermillion)] hover:border-[var(--color-vermillion)] transition-colors">
-      / Got a story? Contact the studio
-    </a>
-  </section>
-
-  <!-- Psalm 1 — full-bleed typographic display.
-       This is the most texturally interesting copy on the site;
-       it earns the oversized treatment. -->
-  <section class="w-full bg-[var(--color-ink)] text-[var(--color-paper)] px-[var(--space-gutter)] py-[clamp(5rem,12vw,10rem)]">
-    <p class="font-mono text-[var(--text-small)] text-[var(--color-vermillion)] mb-10 uppercase tracking-wider">
-      Psalm 1 &middot; God&rsquo;s art intro
-    </p>
-    <blockquote class="font-[family-name:var(--font-display)] uppercase leading-[1.05] max-w-5xl"
-                style="font-size: var(--text-h1);">
-      Blessed is the man<br />
-      <span class="inline-block pl-[1em]">who walks not in the counsel of the wicked,</span><br />
-      nor stands in the way of sinners,<br />
-      <span class="inline-block pl-[1em]">nor sits in the seat of scoffers;</span><br />
-      but his delight is in the law of the Lord,<br />
-      <span class="inline-block pl-[1em]">and on his law he meditates day and night.</span>
+  <section class="block-ink">
+    <p class="eyebrow">Psalm 1 &middot; the measure</p>
+    <blockquote class="h1" style="color:var(--color-paper); max-width:64rem;">
+      His delight is in the law of the Lord,<br />
+      <span style="display:inline-block; padding-left:1em;">and on his law he meditates day and night.</span>
     </blockquote>
+    <a href="/contact" class="link-slash link-slash--paper">/ Got a project? Contact the studio</a>
   </section>
 </BaseLayout>

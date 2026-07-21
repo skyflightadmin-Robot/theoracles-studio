@@ -1,157 +1,93 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-
-// Netlify Forms: data-netlify="true" on a POST form is all Netlify needs.
-// The hidden form-name field is required for the build-time form detection.
-// After launch, submissions show up in the Netlify dashboard under Forms.
-//
-// Submit UX: an inline JS handler intercepts the submit, POSTs via fetch,
-// and swaps the form for a branded success block — so visitors don't get
-// kicked to Netlify's default gray success page. If JS fails, the form
-// still submits normally and Netlify's default success page is the
-// fallback (ugly but functional).
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout
   title="Contact — The Oracles"
-  description="Got a story that needs telling? A question about how we work? Or wondering who we partner with? Send us a note — we read everything that lands in the studio inbox."
+  description="Tell us your story. We'd love to hear what you're working on, and we read everything that lands in the studio inbox."
+  path="/contact"
 >
-  <section class="px-[var(--space-gutter)] pt-[clamp(4rem,10vw,9rem)] pb-[clamp(2rem,6vw,5rem)]">
-    <p class="font-mono text-[var(--text-small)] text-[var(--color-muted)] mb-6">
-      <span class="bracket-count">Contact</span>
-    </p>
-    <h1 class="font-[family-name:var(--font-display)] uppercase leading-[0.9] max-w-5xl"
-        style="font-size: var(--text-display);">
-      Reach out.
-    </h1>
-    <p class="mt-10 max-w-2xl text-[var(--text-body)] leading-relaxed">
-      Do you need help telling a story? Are you a donor wondering about
-      who we help? Do you have questions about our process? We&rsquo;d love
-      to hear from you.
+  <section class="vhero">
+    <p class="eyebrow">Contact</p>
+    <h1 class="vhero__title">Tell us your <span class="accent">story.</span></h1>
+    <p class="vhero__sub">
+      We&rsquo;d love to hear what you&rsquo;re working on, or what you wish you
+      could make. A sentence is plenty to start. We read everything that lands
+      in the studio inbox.
     </p>
   </section>
 
-  <!-- Netlify-backed contact form. Editorial, lots of whitespace,
-       input lines only (no boxed fields). -->
-  <section class="px-[var(--space-gutter)] pb-[clamp(5rem,12vw,10rem)]" data-contact-wrap>
+  <section class="section section--tight" data-contact-wrap>
     <form
+      class="form contact-form"
       name="contact"
       method="POST"
+      action="/contact"
       data-netlify="true"
       netlify-honeypot="bot-field"
       novalidate
-      class="max-w-2xl space-y-10 contact-form"
     >
       <input type="hidden" name="form-name" value="contact" />
-      <p class="hidden">
-        <label>Don&rsquo;t fill this out if you&rsquo;re human: <input name="bot-field" /></label>
+      <p style="position:absolute; left:-9999px;" aria-hidden="true">
+        <label>Don&rsquo;t fill this out: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
       </p>
 
-      <label class="block">
-        <span class="font-mono text-[var(--text-small)] uppercase tracking-wider text-[var(--color-muted)]">
-          Name
-        </span>
-        <input
-          type="text"
-          name="name"
-          class="mt-2 w-full bg-transparent border-0 border-b border-[var(--color-ink)] py-3 text-[var(--text-body)] focus:outline-none focus:border-[var(--color-vermillion)] transition-colors"
-        />
+      <label class="field">
+        <span class="field__label">Name</span>
+        <input type="text" name="name" autocomplete="name" />
       </label>
 
-      <label class="block">
-        <span class="font-mono text-[var(--text-small)] uppercase tracking-wider text-[var(--color-muted)]">
-          Email <span class="text-[var(--color-vermillion)]">*</span>
-        </span>
-        <input
-          type="email"
-          name="email"
-          required
-          class="mt-2 w-full bg-transparent border-0 border-b border-[var(--color-ink)] py-3 text-[var(--text-body)] focus:outline-none focus:border-[var(--color-vermillion)] transition-colors"
-        />
+      <label class="field">
+        <span class="field__label">Email <span class="vermillion">*</span></span>
+        <input type="email" name="email" required autocomplete="email" />
       </label>
 
-      <label class="block">
-        <span class="font-mono text-[var(--text-small)] uppercase tracking-wider text-[var(--color-muted)]">
-          Message
-        </span>
-        <textarea
-          name="message"
-          rows="6"
-          class="mt-2 w-full bg-transparent border-0 border-b border-[var(--color-ink)] py-3 text-[var(--text-body)] resize-y focus:outline-none focus:border-[var(--color-vermillion)] transition-colors"
-        ></textarea>
+      <label class="field">
+        <span class="field__label">Tell us about it</span>
+        <textarea name="message" rows="6"></textarea>
       </label>
 
-      <p class="contact-error hidden font-mono text-[var(--text-small)] text-[var(--color-vermillion)]" role="alert" aria-live="polite">
-        / Something broke on our end. Try again, or email
-        <a href="mailto:hello@theoracles.studio" class="underline">hello@theoracles.studio</a>.
+      <p class="contact-error mono vermillion" role="alert" aria-live="polite" hidden>
+        / We need a valid email before we can reply.
       </p>
 
-      <button
-        type="submit"
-        class="contact-submit font-mono text-[var(--text-small)] uppercase tracking-wider border-b-2 border-[var(--color-ink)] pb-1 hover:text-[var(--color-vermillion)] hover:border-[var(--color-vermillion)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        / Send
-      </button>
+      <button type="submit" class="submit">/ Send</button>
     </form>
 
-    <!-- Inline success block. Revealed by JS when the fetch resolves OK. -->
-    <div class="contact-success hidden max-w-2xl" role="status" aria-live="polite">
-      <p class="font-mono text-[var(--text-small)] text-[var(--color-vermillion)] mb-4 uppercase tracking-wider">
-        / Message received
-      </p>
-      <h2 class="font-[family-name:var(--font-display)] uppercase leading-[0.95] max-w-4xl"
-          style="font-size: var(--text-h1);">
-        Thanks &mdash;<br />we heard you.
-      </h2>
-      <p class="mt-8 text-[var(--text-body)] leading-relaxed">
-        We read everything that lands in the studio inbox.
-        We&rsquo;ll be in touch.
+    <div class="contact-success measure" role="status" aria-live="polite" hidden>
+      <p class="eyebrow vermillion">/ Message received</p>
+      <h2 class="h1">Thanks.<br />We heard you.</h2>
+      <p class="lead" style="margin-top:1.5rem;">
+        We read everything that lands in the studio inbox. We&rsquo;ll be in touch.
       </p>
     </div>
   </section>
 
-  <script>
-    /* Progressive-enhancement submit handler for the contact form.
-     * Intercepts submit, POSTs via fetch, swaps the form for an inline
-     * success block. Falls back to a standard POST + Netlify redirect
-     * if JS fails. Disables the button during flight to prevent
-     * double-submits, and does the minimum required-field check since
-     * we added `novalidate` to suppress the browser's default tooltips. */
-    const form = document.querySelector<HTMLFormElement>('form.contact-form');
-    const wrap = document.querySelector<HTMLElement>('[data-contact-wrap]');
-    const success = wrap?.querySelector<HTMLElement>('.contact-success');
-    const errorMsg = wrap?.querySelector<HTMLElement>('.contact-error');
-    const submitBtn = wrap?.querySelector<HTMLButtonElement>('.contact-submit');
-
-    form?.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      errorMsg?.classList.add('hidden');
-
-      const emailInput = form.querySelector<HTMLInputElement>('input[name="email"]');
-      if (emailInput && !emailInput.checkValidity()) {
-        emailInput.focus();
-        errorMsg?.classList.remove('hidden');
-        if (errorMsg) errorMsg.textContent = '/ We need a valid email before we can reply.';
-        return;
-      }
-
-      if (submitBtn) submitBtn.disabled = true;
-
-      const data = new FormData(form);
-      const body = new URLSearchParams();
-      data.forEach((v, k) => body.append(k, v.toString()));
-
-      try {
-        const res = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body.toString() });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        form.classList.add('hidden');
-        success?.classList.remove('hidden');
-        success?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      } catch (err) {
-        console.error('Contact submit failed', err);
-        if (submitBtn) submitBtn.disabled = false;
-        errorMsg?.classList.remove('hidden');
-      }
-    });
+  <script is:inline>
+    (function () {
+      var wrap = document.querySelector('[data-contact-wrap]');
+      var form = wrap.querySelector('.contact-form');
+      var success = wrap.querySelector('.contact-success');
+      var error = wrap.querySelector('.contact-error');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var email = form.querySelector('input[name="email"]');
+        if (!email.checkValidity()) { error.hidden = false; email.focus(); return; }
+        error.hidden = true;
+        var data = new FormData(form);
+        fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(data).toString()
+        }).then(function (res) {
+          if (!res.ok) throw new Error('send failed');
+          form.hidden = true; success.hidden = false;
+          success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }).catch(function () {
+          error.textContent = '/ Something went wrong sending that. Email us at hello@theoracles.studio.';
+          error.hidden = false;
+        });
+      });
+    })();
   </script>
 </BaseLayout>

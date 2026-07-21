@@ -1,167 +1,272 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroReel from '../components/HeroReel.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout
   title="The Oracles — where law and story meet"
-  description="A small nonprofit studio telling stories that promote the goodness of God’s law. Christian education. Pastoral care. Behind-the-scenes work for organizations whose stories matter more than their marketing budget."
+  description="A studio where law and story meet. God's law orders every aspect of life — church, state, family, market, and the individual."
+  path="/"
 >
-  <!-- Hero: full-bleed type paired with a letterboxed BTS reel on the right.
-       Grid collapses to a single column on narrow viewports so the reel
-       stacks under the type instead of squeezing. -->
-  <section class="hero-grid px-[var(--space-gutter)] pt-[clamp(2rem,6vw,5rem)] pb-[clamp(4rem,10vw,9rem)]">
-    <div class="hero-grid__type">
-      <p class="font-mono text-[var(--text-small)] text-[var(--color-muted)] mb-6">
-        <span class="bracket-count">01</span>
-        <span class="ml-4">Who we are</span>
-      </p>
-
-      <h1 class="font-[family-name:var(--font-display)] uppercase leading-[0.9] tracking-tight hero-title">
-        Where&nbsp;law<br />
-        and&nbsp;story<br />
-        <span class="text-[var(--color-vermillion)]">meet.</span>
-      </h1>
-
-      <p class="mt-10 max-w-xl text-[var(--text-body)] leading-relaxed">
-        We&rsquo;re a small nonprofit studio telling stories that promote
-        the goodness of God&rsquo;s law.
-      </p>
-    </div>
-
-    <aside class="hero-grid__reel">
-      <HeroReel />
-    </aside>
-  </section>
-
-  <style>
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: clamp(2rem, 5vw, 4rem);
-      align-items: center;
-    }
-    /* Scale the hero headline down on the 2-column layout so the reel
-     * sits next to the type rather than far below it. */
-    .hero-title {
-      font-size: clamp(3rem, 10vw, 8rem);
-    }
-    @media (min-width: 900px) {
-      .hero-grid {
-        grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-      }
-      .hero-title {
-        font-size: clamp(3rem, 7.5vw, 6rem);
-      }
-      .hero-grid__reel {
-        align-self: center;
-      }
-    }
-  </style>
-
-  <!-- Work preview — vermillion full-bleed block, a nod to THE LINE.
-       Links out to the portfolio page. -->
-  <section
-    class="w-full bg-[var(--color-vermillion)] text-[var(--color-paper)]"
-    style="clip-path: polygon(0 8%, 100% 0, 100% 92%, 0 100%); padding: clamp(6rem,16vw,14rem) var(--space-gutter);"
-  >
-    <p class="font-mono text-[var(--text-small)] opacity-80 mb-6">
-      <span class="bracket-count">02</span>
-      <span class="ml-4">Work</span>
-    </p>
-    <h2 class="font-[family-name:var(--font-display)] uppercase leading-[0.9]"
-        style="font-size: var(--text-display);">
-      Many&nbsp;stories.<br />
-      One&nbsp;law.
-    </h2>
-    <p class="mt-8 max-w-xl">
-      Christian education. Pastoral care. And more — all aimed at
-      imprinting the good, beautiful, and true nature of the law of God.
-    </p>
-    <a href="/work"
-       class="inline-block mt-10 font-mono text-[var(--text-small)] uppercase tracking-wider border-b border-[var(--color-paper)] pb-0.5 hover:opacity-80 transition-opacity">
-      / See the work
-    </a>
-  </section>
-
-  <!-- About teaser -->
-  <section class="px-[var(--space-gutter)] py-[clamp(4rem,10vw,10rem)]">
-    <p class="font-mono text-[var(--text-small)] text-[var(--color-muted)] mb-6">
-      <span class="bracket-count">03</span>
-      <span class="ml-4">About</span>
-    </p>
-    <h2 class="font-[family-name:var(--font-display)] uppercase leading-[0.9] max-w-4xl"
-        style="font-size: var(--text-h1);">
-      A small studio, a specific mission.
-    </h2>
-    <a href="/about"
-       class="inline-block mt-10 font-mono text-[var(--text-small)] uppercase tracking-wider border-b border-[var(--color-ink)] pb-0.5 hover:text-[var(--color-vermillion)] hover:border-[var(--color-vermillion)] transition-colors">
-      / Read more
-    </a>
-  </section>
-
-  <!-- Support section.
-       Anchor `support` matches the nav label ("Support"). A secondary
-       `donate` anchor is kept so any external link that still points at
-       /#donate (old nav, email signatures, bookmarks) scrolls here too.
-       CTA opens GivingFuel in a new tab. -->
-  <section
-    id="support"
-    class="px-[var(--space-gutter)] py-[clamp(5rem,12vw,12rem)] border-t border-[var(--color-hairline)]"
-  >
-    <span id="donate" aria-hidden="true"></span>
-    <p class="font-mono text-[var(--text-small)] text-[var(--color-muted)] mb-6">
-      <span class="bracket-count">04</span>
-      <span class="ml-4">Support</span>
-    </p>
-    <h2 class="font-[family-name:var(--font-display)] uppercase leading-[0.9] max-w-4xl"
-        style="font-size: var(--text-h1);">
-      Stories that otherwise<br />
-      wouldn&rsquo;t&nbsp;be&nbsp;told.
-    </h2>
-    <div class="mt-10 max-w-xl text-[var(--text-body)] leading-relaxed space-y-6">
-      <p>
-        Most of our projects are three- to five-minute films &mdash; the kind
-        a production studio would typically charge $3,000 to $5,000 to make.
-        Camera bodies and lenses. Lighting. Audio. Travel to where the story
-        is. And the editing hours that turn footage into something worth
-        watching.
-      </p>
-      <p>
-        The Oracles helps smaller ministries and organizations tell those
-        stories at little to no cost to them. Not because the work costs
-        less to produce &mdash; because donors cover the gap.
-      </p>
-      <p>
-        Your gift funds the gear, the crew, and the time in between.
-      </p>
-    </div>
-
-    <!-- Pull-quote from Reign's headmaster — social proof for the ask. -->
-    <figure class="mt-14 pl-6 border-l-2 border-[var(--color-vermillion)] max-w-3xl">
-      <blockquote class="font-[family-name:var(--font-display)] uppercase leading-[1.05]"
-                  style="font-size: var(--text-h2);">
-        &ldquo;The team did a great job of creating a story on film
-        that captures the heartbeat of our ministry.&rdquo;
-      </blockquote>
-      <figcaption class="mt-5 font-mono text-[var(--text-small)] uppercase tracking-wider text-[var(--color-muted)]">
-        &mdash; Matt Vlahovich, Headmaster · Reign Christian Academy
-      </figcaption>
-    </figure>
-
-    <a
-      href="https://urbanskye.givingfuel.com/aaron-sanford"
-      target="_blank"
-      rel="noopener"
-      class="inline-flex items-center gap-3 mt-12 bg-[var(--color-vermillion-strong)] text-[var(--color-paper)] font-mono text-[var(--text-small)] uppercase tracking-wider px-8 py-4 hover:opacity-90 transition-opacity"
+  <link slot="head" rel="preload" as="image" href="/video/hero-reel-poster.jpg" />
+  <!-- ===== HERO — BTS reel behind the type ===== -->
+  <section class="home-hero">
+    <video
+      class="hero-reel"
+      autoplay
+      muted
+      loop
+      playsinline
+      aria-hidden="true"
+      poster="/video/hero-reel-poster.jpg"
     >
-      <span>/ Donate</span>
-      <span aria-hidden="true">&rarr;</span>
-    </a>
-    <p class="mt-6 max-w-xl font-mono text-[var(--text-small)] text-[var(--color-muted)] leading-relaxed">
-      Gifts are processed by Urban Skye, a U.S. 501(c)(3) nonprofit, and are
-      tax-deductible to the full extent allowed by law. Secure giving via
-      urbanskye.givingfuel.com.
-    </p>
+      <source src="/video/hero-reel.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-reel__scrim"></div>
+    <p class="hero-hud hero-hud--l"><span id="fps">00</span> fps</p>
+    <p class="hero-hud hero-hud--r">Showreel &middot; MMXXVI</p>
+    <button class="reel-toggle" id="reel-toggle" type="button" aria-pressed="false">/ Pause reel</button>
+
+    <div class="home-hero__inner">
+      <h1 class="home-hero__aim">Where&nbsp;law and story <span class="accent">meet.</span></h1>
+      <p class="home-hero__sub">
+        The Oracles is a studio. God&rsquo;s law orders every aspect of life —
+        the church, the state, the home, the market, the individual. The
+        Oracles is where law and story meet.
+      </p>
+      <p class="scroll-cue">Scroll to enter &darr;</p>
+    </div>
   </section>
+
+  <!-- ===== SPHERES — cinematic media crossfade + mini-orbit index ===== -->
+  <section class="spheres" aria-label="Church, State, Family, Market, Individual">
+    <div class="orbit-col">
+      <div class="media-stage">
+        <img class="msphere on" data-i="0" src="/images/spheres/church.jpg" alt="Church — Redemption &amp; Revelation" />
+        <img class="msphere" data-i="1" src="/images/spheres/state.jpg" alt="State — We the People" loading="lazy" />
+        <img class="msphere" data-i="2" src="/images/spheres/market.jpg" alt="Market — A Collective Garden" loading="lazy" />
+        <img class="msphere" data-i="3" src="/images/spheres/family.jpg" alt="Family — Foundation of Society" loading="lazy" />
+        <img class="msphere" data-i="4" src="/images/spheres/individual.jpg" alt="Individual — Self Government" loading="lazy" />
+        <div class="media-scrim"></div>
+
+        <p class="media-hud"><span id="counter">01</span> / 05 &middot; 30 fps</p>
+
+        <div class="media-caption">
+          <p class="mc-name" id="mc-name">Church</p>
+          <p class="mc-law" id="mc-law">Redemption &amp; Revelation</p>
+        </div>
+
+        <div class="mini-orbit" aria-hidden="true">
+          <div class="mini-ring"></div>
+          <div class="mini-ptr"></div>
+          <div class="mini-wheel" id="mini-wheel">
+            <div class="mini-dot on" data-i="0" style="left:52px; top:12px;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 2h4v6h6v4h-6v10h-4V12H4V8h6z"/></svg></div>
+            <div class="mini-dot" data-i="1" style="left:90px; top:40px;"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14,7 14,15 10,15 10,7"/><rect x="7" y="15" width="10" height="2"/><rect x="11" y="17" width="2" height="5"/></svg></div>
+            <div class="mini-dot" data-i="2" style="left:76px; top:84px;"><svg viewBox="0 0 24 24"><text x="12" y="19" text-anchor="middle" font-family="'Archivo Black', 'Arial Black', sans-serif" font-size="21" fill="currentColor">$</text></svg></div>
+            <div class="mini-dot" data-i="3" style="left:28px; top:84px;"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,3 21,11 3,11"/><rect x="6" y="11" width="12" height="10"/></svg></div>
+            <div class="mini-dot" data-i="4" style="left:14px; top:40px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="5" r="2.6" fill="currentColor" stroke="none"/><line x1="12" y1="8" x2="12" y2="15"/><line x1="7" y1="11" x2="17" y2="11"/><line x1="12" y1="15" x2="8.5" y2="21"/><line x1="12" y1="15" x2="15.5" y2="21"/></svg></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sphere-list">
+      <article class="sphere-block" data-i="0">
+        <p class="sphere-block__num">[ 01 ]</p>
+        <h2 class="sphere-block__name">Church</h2>
+        <p class="law-line"><a href="/church">Redemption &amp; Revelation</a></p>
+        <p class="sphere-block__desc">
+          God is always writing his story in and through the church. Where you
+          fit and how you serve our King is your part of a much larger story. The
+          Oracles can tell your part of the story because we love God&rsquo;s story.
+        </p>
+        <p class="sphere-block__work">Ministry films · fundraising videos · missions</p>
+        <a href="/church" class="link-slash" style="margin-top:1.5rem;">/ Enter Church</a>
+      </article>
+
+      <article class="sphere-block" data-i="1">
+        <p class="sphere-block__num">[ 02 ]</p>
+        <h2 class="sphere-block__name">State</h2>
+        <p class="law-line"><a href="/state">We the People</a></p>
+        <p class="sphere-block__desc">
+          Adams said, &ldquo;Our Constitution was made only for a moral and
+          religious people. It is wholly inadequate to the government of any
+          other.&rdquo; Without good stories, we don&rsquo;t keep our republic.
+        </p>
+        <p class="sphere-block__work">Campaign films · civic · issue docs</p>
+        <a href="/state" class="link-slash" style="margin-top:1.5rem;">/ Enter State</a>
+      </article>
+
+      <article class="sphere-block" data-i="2">
+        <p class="sphere-block__num">[ 03 ]</p>
+        <h2 class="sphere-block__name">Market</h2>
+        <p class="law-line"><a href="/market">A Collective Garden</a></p>
+        <p class="sphere-block__desc">
+          The market is a garden we tend together. Your efforts produce. Your
+          clients should see beauty you create. Let us tell that story for you.
+        </p>
+        <p class="sphere-block__work">Brand films · real estate · construction</p>
+        <a href="/market" class="link-slash" style="margin-top:1.5rem;">/ Enter Market</a>
+      </article>
+
+      <article class="sphere-block" data-i="3">
+        <p class="sphere-block__num">[ 04 ]</p>
+        <h2 class="sphere-block__name">Family</h2>
+        <p class="law-line"><a href="/family">Foundation of Society</a></p>
+        <p class="sphere-block__desc">
+          The home is where the law is first practiced and the story is first
+          formed. Here is where we shape, mold, and nurture the next generation.
+          Let&rsquo;s tell stories that build for generations because they&rsquo;re
+          rooted in God&rsquo;s unchanging law.
+        </p>
+        <p class="sphere-block__work">Weddings · protect life · education</p>
+        <a href="/family" class="link-slash" style="margin-top:1.5rem;">/ Enter Family</a>
+      </article>
+
+      <article class="sphere-block" data-i="4">
+        <p class="sphere-block__num">[ 05 ]</p>
+        <h2 class="sphere-block__name">Individual</h2>
+        <p class="law-line"><a href="/individual">Self Government</a></p>
+        <p class="sphere-block__desc">
+          Everything else begins with a person learning to govern themselves.
+          Stories that give us structure and direction are designed to see the
+          self flourish.
+        </p>
+        <p class="sphere-block__work">Portraits · personal brand · testimony</p>
+        <a href="/individual" class="link-slash" style="margin-top:1.5rem;">/ Enter Individual</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== CLOSING NOTE ===== -->
+  <section class="section rule-top">
+    <p class="eyebrow"><span class="num">◆</span> &nbsp; One studio</p>
+    <h2 class="h1 measure-wide">One law.<br />All of life.<br />Countless stories.</h2>
+    <div class="measure" style="margin-top:2rem;">
+      <p class="lead">
+        The Oracles is a for-profit studio carrying the work once done as
+        SkyFlight Media — one craft, held to one law, across every part of life.
+      </p>
+    </div>
+    <a href="/about" class="link-slash">/ How we think about the work</a>
+  </section>
+
+  <script is:inline>
+    /* Cinematic scrollytelling: the deck of photos and the mini-orbit dial are
+       positioned directly from scroll progress (rAF), so the card slide is
+       fixed to the scrollbar — hold mid-slide, reverse on scroll-back. No
+       library, no scroll hijack. */
+    (function () {
+      var SPHERES = [
+        { name: 'Church',     law: 'Redemption & Revelation' },
+        { name: 'State',      law: 'We the People' },
+        { name: 'Market',     law: 'A Collective Garden' },
+        { name: 'Family',     law: 'Foundation of Society' },
+        { name: 'Individual', law: 'Self Government' }
+      ];
+      function byIndex(nodes) { var a = []; nodes.forEach(function (el) { a[+el.dataset.i] = el; }); return a; }
+      var imgs = byIndex(Array.prototype.slice.call(document.querySelectorAll('.msphere')));
+      var dots = byIndex(Array.prototype.slice.call(document.querySelectorAll('.mini-dot')));
+      var blocks = byIndex(Array.prototype.slice.call(document.querySelectorAll('.sphere-block')));
+      var wheel = document.getElementById('mini-wheel');
+      var counter = document.getElementById('counter');
+      var mcName = document.getElementById('mc-name');
+      var mcLaw = document.getElementById('mc-law');
+      var N = blocks.length;
+      if (!N) return;
+
+      var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      /* The deck and dial are positioned directly from scroll, not by a timed
+         transition — so remove the CSS ease on the wheel and drive both each frame. */
+      if (wheel) wheel.style.transition = 'none';
+      var lastRound = -1, ticking = false;
+
+      /* progress p (0..N-1) = where the block centres sit vs the viewport
+         centre. The incoming photo's slide is a linear function of p, so it is
+         fixed to the scrollbar: stop and it holds mid-slide; reverse and it
+         tracks back. */
+      function render() {
+        ticking = false;
+        /* On mobile/tablet the media is pinned as a strip at the top, so the
+           active line sits in the centre of the reading area below it — this
+           makes each photo change as its text scrolls in, not after. */
+        var isNarrow = window.matchMedia && window.matchMedia('(max-width: 1024px)').matches;
+        var mid = window.innerHeight * (isNarrow ? 0.66 : 0.5);
+        var c = [], k;
+        for (k = 0; k < N; k++) { var r = blocks[k].getBoundingClientRect(); c[k] = r.top + r.height / 2; }
+        var p = 0;
+        if (mid <= c[0]) p = 0;
+        else if (mid >= c[N - 1]) p = N - 1;
+        else { for (k = 0; k < N - 1; k++) { if (mid >= c[k] && mid <= c[k + 1]) { p = k + (mid - c[k]) / (c[k + 1] - c[k]); break; } } }
+
+        var base = reduceMotion ? Math.round(p) : Math.floor(p);
+        var frac = reduceMotion ? 0 : (p - base);
+        /* Dwell: hold the shot still for the first and last `hold` of each
+           segment, compressing the actual slide into the middle of the scroll
+           between two spheres. Raise `hold` for a longer pause, lower for a
+           slide that tracks scroll the whole way. */
+        var hold = 0.34;
+        var t = frac < hold ? 0 : (frac > 1 - hold ? 1 : (frac - hold) / (1 - 2 * hold));
+        var round = t >= 0.5 ? base + 1 : base;
+        if (round > N - 1) round = N - 1;
+
+        for (k = 0; k < N; k++) {
+          var deg = (k <= base) ? 0 : (k === base + 1 ? (1 - t) * 100 : 100);
+          imgs[k].style.opacity = '1';
+          imgs[k].style.zIndex = k + 1;
+          imgs[k].style.transform = 'rotate(' + deg + 'deg)';
+          dots[k].classList.toggle('on', k === round);
+        }
+        if (wheel) wheel.style.setProperty('--rot', (-(base + t) * 72) + 'deg');
+
+        if (round !== lastRound) {
+          lastRound = round;
+          if (counter) counter.textContent = '0' + (round + 1);
+          if (mcName) mcName.textContent = SPHERES[round].name;
+          if (mcLaw) mcLaw.textContent = SPHERES[round].law;
+        }
+      }
+      function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(render); } }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      render();
+
+      /* Respect reduced motion: don't autoplay the reel; snap fps to 30. */
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var reel = document.querySelector('.hero-reel');
+      if (reduce) {
+        if (reel && reel.pause) { reel.removeAttribute('autoplay'); reel.pause(); }
+      }
+
+      /* Pause/play control for the reel (WCAG 2.2.2). */
+      var toggle = document.getElementById('reel-toggle');
+      if (toggle && reel) {
+        toggle.addEventListener('click', function () {
+          if (reel.paused) {
+            reel.play();
+            toggle.textContent = '/ Pause reel';
+            toggle.setAttribute('aria-pressed', 'false');
+          } else {
+            reel.pause();
+            toggle.textContent = '/ Play reel';
+            toggle.setAttribute('aria-pressed', 'true');
+          }
+        });
+      }
+
+      /* Count the hero fps up 00 -> 30 once on load. */
+      var fpsEl = document.getElementById('fps');
+      if (fpsEl) {
+        if (reduce) {
+          fpsEl.textContent = '30';
+        } else {
+          var f = 0;
+          var iv = setInterval(function () {
+            f += 1;
+            fpsEl.textContent = (f < 10 ? '0' : '') + f;
+            if (f >= 30) clearInterval(iv);
+          }, 42);
+        }
+      }
+    })();
+  </script>
 </BaseLayout>

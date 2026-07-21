@@ -1,27 +1,21 @@
-@import "tailwindcss";
+/* ============================================================
+ * THE ORACLES — site stylesheet (ported from Mockup v2)
+ * Five spheres of life, one law. Where law and story meet.
+ * ========================================================== */
 
-/* ---------------------------------------------------------
- * The Oracles — design tokens
- * Derived from thelinestudio.com aesthetic, scaled for the
- * Oracles' editorial/reflective voice.
- * ------------------------------------------------------- */
+:root {
+  --color-paper: #efeeea;
+  --color-ink: #0b0b0b;
+  --color-vermillion: #d64228;
+  --color-vermillion-strong: #b83919; /* 4.97:1 on paper — small text + buttons */
+  --color-vermillion-light: #df5636;  /* 5.18:1 on ink — small text on dark blocks */
+  --color-muted: #605f5b; /* 5.5:1 on paper (was #6b6a66 at 4.66:1) */
+  --color-hairline: #d6d4cf;
 
-@theme {
-  /* Color system */
-  --color-paper: #efeeea;          /* warm off-white body */
-  --color-ink: #0b0b0b;            /* near-black type */
-  --color-vermillion: #d64228;     /* brand accent — display type, borders */
-  --color-vermillion-strong: #b83919; /* AA-contrast variant for button bg */
-  --color-muted: #6b6a66;          /* secondary text */
-  --color-hairline: #d6d4cf;       /* dividers */
-
-  /* Type system — load in BaseLayout */
   --font-display: "Archivo Black", "Arial Black", sans-serif;
   --font-body: "Inter", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
-  /* Type scale — editorial, large display */
-  --text-hero: clamp(3.5rem, 12vw, 11rem);
   --text-display: clamp(2.5rem, 7vw, 6rem);
   --text-h1: clamp(2rem, 5vw, 4rem);
   --text-h2: clamp(1.5rem, 3.5vw, 2.5rem);
@@ -29,98 +23,256 @@
   --text-body: 1.0625rem;
   --text-small: 0.8125rem;
 
-  /* Spacing rhythm */
   --space-gutter: clamp(1rem, 4vw, 3rem);
 }
 
-/* Base resets */
-html {
-  background: var(--color-paper);
-  color: var(--color-ink);
-  font-family: var(--font-body);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
+* { box-sizing: border-box; }
+html { background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+body { margin: 0; min-height: 100dvh; line-height: 1.5; }
+a { color: inherit; }
+p { margin: 0 0 1rem; }
+h1, h2, h3 { font-weight: normal; margin: 0; }
 
-body {
-  min-height: 100dvh;
-  line-height: 1.5;
-}
-
-/* Filmic motifs — reusable primitives */
-
-.slash-nav a + a::before {
-  content: " / ";
-  color: var(--color-muted);
-  margin: 0 0.5em;
-}
-
+/* ---- Shared type helpers ---------------------------------- */
+.mono { font-family: var(--font-mono); font-size: var(--text-small); }
+.muted { color: var(--color-muted); }
+.vermillion { color: var(--color-vermillion-strong); }
+.measure { max-width: 42rem; }
+.measure-wide { max-width: 64rem; }
+.eyebrow { font-family: var(--font-mono); font-size: var(--text-small); text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-muted); margin: 0 0 1.5rem; }
+.eyebrow .num { color: var(--color-vermillion-strong); }
 .bracket-count::before { content: "[ "; color: var(--color-muted); }
 .bracket-count::after  { content: " ]"; color: var(--color-muted); }
 
-.film-frame {
-  position: relative;
-}
-.film-frame::before {
+.h-display { font-family: var(--font-display); text-transform: uppercase; line-height: 0.9; font-size: var(--text-display); }
+.h1 { font-family: var(--font-display); text-transform: uppercase; line-height: 0.9; font-size: var(--text-h1); }
+.h2 { font-family: var(--font-display); text-transform: uppercase; line-height: 0.95; font-size: var(--text-h2); }
+.lead { font-size: var(--text-body); line-height: 1.6; }
+
+/* The signature sphere subtitle line */
+.law-line { font-family: var(--font-mono); font-size: var(--text-small); text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-vermillion-strong); margin: 0; }
+.law-line a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s ease; }
+.law-line a:hover { border-bottom-color: currentColor; }
+
+/* ---- Header / slash-nav ----------------------------------- */
+.site-header { width: 100%; padding: 1.5rem var(--space-gutter); font-family: var(--font-mono); font-size: var(--text-small); }
+.site-header__row { display: flex; flex-direction: column; gap: 1rem; }
+.wordmark { font-family: var(--font-display); text-transform: uppercase; font-size: 1.125rem; letter-spacing: 0.04em; text-decoration: none; flex-shrink: 0; }
+.slash-nav { display: flex; flex-wrap: wrap; align-items: center; }
+/* padding-block keeps each link's tap target >=24px without changing the layout rhythm */
+.slash-nav a { text-decoration: none; transition: color 0.2s ease; display: inline-block; padding-block: 0.45em; }
+.slash-nav a + a::before { content: "/"; color: var(--color-muted); margin: 0 0.55em; display: inline-block; }
+/* Distinguish the 5 spheres from the 2 utility links (About, Contact):
+   a hairline divider before About + muted color on the pair. */
+.slash-nav a:nth-last-child(-n+3) { color: var(--color-muted); }
+.slash-nav a:nth-last-child(3)::before {
   content: "";
-  position: absolute;
-  inset: 12px;
-  border: 1px dashed var(--color-paper);
-  mix-blend-mode: difference;
-  pointer-events: none;
+  display: inline-block;
+  width: 1px;
+  height: 0.95em;
+  background: var(--color-muted);
+  opacity: 0.5;
+  margin: 0 1.15em;
+  transform: translateY(0.14em);
+}
+.slash-nav a:hover { color: var(--color-vermillion-strong); }
+/* Current page is marked by an underline as well as colour, so it doesn't rely
+   on colour alone (WCAG 1.4.1). */
+.slash-nav a[aria-current="page"] { color: var(--color-vermillion-strong); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.year-marker { color: var(--color-muted); display: none; }
+@media (min-width: 640px) { .site-header__row { flex-direction: row; align-items: center; justify-content: space-between; gap: 1.5rem; } .wordmark { font-size: 1.25rem; } }
+@media (min-width: 1024px) { .year-marker { display: block; } }
+
+/* ---- Sections --------------------------------------------- */
+.section { padding: clamp(4rem, 10vw, 9rem) var(--space-gutter); }
+.section--tight { padding-block: clamp(2rem, 6vw, 5rem); }
+.rule-top { border-top: 1px solid var(--color-hairline); }
+
+/* ---- Links / buttons -------------------------------------- */
+.link-slash { display: inline-block; margin-top: 2.5rem; font-family: var(--font-mono); font-size: var(--text-small); text-transform: uppercase; letter-spacing: 0.06em; text-decoration: none; border-bottom: 1px solid var(--color-ink); padding-bottom: 0.1rem; transition: color 0.2s ease, border-color 0.2s ease; }
+.link-slash:hover { color: var(--color-vermillion-strong); border-color: var(--color-vermillion-strong); }
+.link-slash--paper { border-color: var(--color-paper); }
+.btn { display: inline-flex; align-items: center; gap: 0.75rem; margin-top: 3rem; background: var(--color-vermillion-strong); color: var(--color-paper); font-family: var(--font-mono); font-size: var(--text-small); text-transform: uppercase; letter-spacing: 0.06em; text-decoration: none; padding: 1rem 2rem; transition: opacity 0.2s ease; }
+.btn:hover { opacity: 0.9; }
+
+/* ---- HOME hero (full-bleed reel behind type) -------------- */
+.home-hero { position: relative; overflow: hidden; min-height: 90vh; display: flex; align-items: center; justify-content: center; background: var(--color-ink); }
+.hero-reel { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.hero-reel__scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(11,11,11,0.72), rgba(11,11,11,0.46) 42%, rgba(11,11,11,0.82)); }
+.hero-hud { position: absolute; top: 1.25rem; z-index: 2; font-family: var(--font-mono); font-size: var(--text-small); text-transform: uppercase; letter-spacing: 0.08em; color: rgba(239,238,234,0.92); }
+.hero-hud--l { left: var(--space-gutter); }
+.hero-hud--r { right: var(--space-gutter); }
+.home-hero__inner { position: relative; z-index: 2; text-align: center; padding: 0 var(--space-gutter); max-width: 62rem; color: var(--color-paper); }
+.home-hero__aim { font-family: var(--font-display); text-transform: uppercase; line-height: 0.92; font-size: clamp(2.75rem, 8vw, 6.5rem); margin: 0 auto; max-width: 14ch; }
+.home-hero__aim .accent { color: var(--color-vermillion); }
+.home-hero__conn { font-family: var(--font-mono); font-size: var(--text-small); text-transform: uppercase; letter-spacing: 0.08em; color: rgba(239,238,234,0.72); margin-top: 1.75rem; }
+.home-hero__sub { max-width: 40rem; margin: 1.5rem auto 0; font-size: var(--text-body); line-height: 1.6; color: rgba(239,238,234,0.9); }
+.scroll-cue { margin-top: 2.5rem; font-family: var(--font-mono); font-size: var(--text-small); text-transform: uppercase; letter-spacing: 0.1em; color: rgba(239,238,234,0.85); }
+
+/* Pause control for the autoplaying hero reel (WCAG 2.2.2). */
+.reel-toggle { position: absolute; left: var(--space-gutter); bottom: 1.15rem; z-index: 3; display: inline-flex; align-items: center; min-height: 24px; background: rgba(11,11,11,0.35); color: rgba(239,238,234,0.92); border: 1px solid rgba(239,238,234,0.55); font-family: var(--font-mono); font-size: var(--text-small); text-transform: uppercase; letter-spacing: 0.08em; padding: 0.5rem 0.9rem; cursor: pointer; transition: color 0.2s ease, border-color 0.2s ease; }
+.reel-toggle:hover { color: #fff; border-color: #fff; }
+@media (prefers-reduced-motion: reduce) { .reel-toggle { display: none; } }
+
+/* ---- SPHERES scrollytelling stage ------------------------- */
+.spheres { display: grid; grid-template-columns: 1fr; }
+.orbit-col { padding: 0; }
+
+.orbit-stage { position: relative; width: 380px; height: 380px; max-width: 86vw; aspect-ratio: 1; }
+.oring { position: absolute; inset: 34px; border: 1px dashed var(--color-hairline); border-radius: 50%; }
+.opointer { position: absolute; left: 50%; top: 8px; transform: translateX(-50%); width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 12px solid var(--color-vermillion); z-index: 4; }
+.ohub { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); text-align: center; font-family: var(--font-display); text-transform: uppercase; color: var(--color-vermillion); font-size: 0.95rem; line-height: 0.95; letter-spacing: 0.04em; z-index: 3; }
+.owheel { position: absolute; inset: 0; transform: rotate(var(--rot, 0deg)); transition: transform 0.75s cubic-bezier(.22,.61,.36,1); z-index: 2; }
+.onode { position: absolute; width: 92px; height: 92px; border-radius: 50%; background: var(--color-paper); border: 1px solid var(--color-ink); display: flex; align-items: center; justify-content: center; text-align: center; cursor: pointer; transform: translate(-50%, -50%); transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease; text-decoration: none; }
+.onode span { font-family: var(--font-display); text-transform: uppercase; font-size: 0.7rem; line-height: 1.02; color: var(--color-ink); display: block; transform: rotate(calc(-1 * var(--rot, 0deg))); transition: transform 0.75s cubic-bezier(.22,.61,.36,1), color 0.4s ease; padding: 4px; }
+.onode.on { background: var(--color-vermillion); border-color: var(--color-vermillion); }
+.onode.on span { color: var(--color-paper); }
+
+.sphere-list { }
+.sphere-block { padding: clamp(2.5rem, 6vw, 4rem) var(--space-gutter); border-top: 1px solid var(--color-hairline); }
+.sphere-block__num { font-family: var(--font-mono); font-size: var(--text-small); color: var(--color-muted); letter-spacing: 0.06em; }
+.sphere-block__name { font-family: var(--font-display); text-transform: uppercase; line-height: 0.9; font-size: clamp(2rem, 5vw, 3.25rem); margin: 0.5rem 0 0.4rem; }
+.sphere-block .law-line { margin-bottom: 1rem; }
+.sphere-block__desc { max-width: 34rem; font-size: var(--text-body); line-height: 1.55; color: var(--color-ink); }
+.sphere-block__work { margin-top: 1rem; font-family: var(--font-mono); font-size: var(--text-small); text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-muted); }
+
+@media (min-width: 1025px) {
+  .spheres { grid-template-columns: 0.95fr 1.05fr; align-items: start; }
+  .orbit-col { position: sticky; top: 0; height: 100vh; }
+  .sphere-block { min-height: 82vh; display: flex; flex-direction: column; justify-content: center; border-top: none; }
+  .sphere-block + .sphere-block { border-top: 1px solid var(--color-hairline); }
 }
 
-/* ---------------------------------------------------------
- * Accessibility: skip link + branded focus ring
- * ------------------------------------------------------- */
-
-.skip-link {
-  position: absolute;
-  left: -9999px;
-  top: 0;
-  background: var(--color-ink);
-  color: var(--color-paper);
-  padding: 0.75rem 1rem;
-  font-family: var(--font-mono);
-  font-size: var(--text-small);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  z-index: 1000;
-}
-.skip-link:focus {
-  left: 0.75rem;
-  top: 0.75rem;
+/* Mobile + tablet: pin the media (photos + wheel) to the top so it stays in
+   view and keeps crossfading/rotating while the sphere text scrolls up beneath
+   it. Side-by-side layout is reserved for wide desktop (>=1025px). */
+@media (max-width: 1024px) {
+  .orbit-col { position: sticky; top: 0; height: 32vh; z-index: 2; }
+  /* .orbit-col prefix so this outranks the later base `.media-stage { height:60vh }`
+     rule — the pinned strip must be 32vh on mobile/tablet. */
+  .orbit-col .media-stage { height: 32vh; }
+  .media-caption { display: none; }
+  .sphere-list { position: relative; z-index: 1; }
+  .sphere-block { min-height: 78vh; }
+  /* The first block starts flush under the pinned strip, so give it a lead-in
+     so its header rises into the reading area like every other sphere. */
+  .sphere-block:first-child { padding-top: 22vh; }
 }
 
-/* Branded focus indicator — replaces browser default for links + buttons.
- * Uses :focus-visible so mouse clicks don't show a ring, only keyboard
- * navigation does. Matches the vermillion accent already on the site. */
-:focus {
-  outline: none;
-}
-:focus-visible {
-  outline: 2px solid var(--color-vermillion);
-  outline-offset: 3px;
-  border-radius: 2px;
-}
-/* main is programmatically focused by the skip link; don't show a ring. */
-main:focus-visible {
-  outline: none;
+/* ---- Vertical (sphere page) hero -------------------------- */
+.vhero { padding: clamp(3.5rem, 9vw, 8rem) var(--space-gutter) clamp(2rem, 5vw, 4rem); }
+.vhero__title { font-family: var(--font-display); text-transform: uppercase; line-height: 0.9; font-size: var(--text-display); max-width: 16ch; }
+.vhero__title .accent { color: var(--color-vermillion); }
+.vhero .law-line { margin-top: 1.75rem; }
+.vhero__sub { margin-top: 1.5rem; max-width: 44rem; font-size: var(--text-body); line-height: 1.6; }
+
+/* ---- Full-bleed blocks ------------------------------------ */
+.block-vermillion { width: 100%; background: var(--color-vermillion); color: var(--color-paper); clip-path: polygon(0 6%, 100% 0, 100% 94%, 0 100%); padding: clamp(5rem, 14vw, 12rem) var(--space-gutter); }
+.block-vermillion .eyebrow, .block-vermillion .eyebrow .num { color: rgba(239,238,234,0.85); }
+.block-ink { width: 100%; background: var(--color-ink); color: var(--color-paper); padding: clamp(4rem, 11vw, 9rem) var(--space-gutter); }
+.block-ink .eyebrow { color: var(--color-vermillion-light); }
+
+/* ---- Capability grid -------------------------------------- */
+.grid-cap { display: grid; grid-template-columns: 1fr; gap: clamp(1.5rem, 4vw, 3rem); margin-top: 3rem; }
+@media (min-width: 720px) { .grid-cap { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.cap__num { font-family: var(--font-mono); font-size: var(--text-small); color: var(--color-vermillion-strong); letter-spacing: 0.06em; }
+.cap__title { font-family: var(--font-display); text-transform: uppercase; font-size: 1.15rem; line-height: 1; margin: 0.75rem 0 0.6rem; }
+.cap p { font-size: var(--text-body); line-height: 1.55; margin: 0; }
+.cap--paper p { color: var(--color-paper); opacity: 0.92; }
+
+/* ---- Work tiles ------------------------------------------- */
+.grid-work { display: grid; grid-template-columns: 1fr; gap: clamp(1.75rem, 4vw, 3.5rem); margin-top: 1rem; }
+@media (min-width: 720px) { .grid-work { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.tile__frame { aspect-ratio: 16 / 9; background: var(--color-ink); color: var(--color-paper); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: var(--text-small); text-transform: uppercase; letter-spacing: 0.08em; position: relative; }
+.tile__frame::after { content: ""; position: absolute; inset: 12px; border: 1px dashed rgba(239,238,234,0.4); pointer-events: none; }
+.tile__meta { margin-top: 1rem; }
+.tile__title { font-family: var(--font-display); text-transform: uppercase; font-size: 1.25rem; line-height: 1; margin: 0 0 0.5rem; }
+.tile__desc { font-size: var(--text-body); line-height: 1.5; color: var(--color-muted); margin: 0; }
+.tile__credit { margin: 0.65rem 0 0; font-family: var(--font-mono); font-size: var(--text-small); text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-muted); }
+
+/* ---- Pull quote ------------------------------------------- */
+.pullquote { margin-top: 3.5rem; padding-left: 1.5rem; border-left: 2px solid var(--color-vermillion); max-width: 48rem; }
+.pullquote blockquote { font-family: var(--font-display); text-transform: uppercase; line-height: 1.05; font-size: var(--text-h2); margin: 0; }
+.pullquote figcaption { margin-top: 1.25rem; font-family: var(--font-mono); font-size: var(--text-small); text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-muted); }
+
+/* Scroll-scrubbed word reveal — each word's fade + rise is a function of the
+   quote's scroll position, so it reverses on scroll-up. JS splits the
+   blockquote into .w spans and drives them. */
+.scroll-quote .w { display: inline-block; will-change: opacity, transform; }
+@media (prefers-reduced-motion: reduce) { .scroll-quote .w { opacity: 1 !important; transform: none !important; } }
+
+/* ---- Pricing highlight cards -------------------------------- */
+.price-grid { display: grid; grid-template-columns: 1fr; gap: clamp(1.5rem, 4vw, 2.5rem); margin-top: 3rem; }
+@media (min-width: 720px) { .price-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.price-card { border: 1px solid var(--color-hairline); background: var(--color-paper); padding: clamp(1.75rem, 4vw, 2.5rem); }
+.price-card__label { font-family: var(--font-mono); font-size: var(--text-small); text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-vermillion-strong); margin: 0; }
+.price-card__price { font-family: var(--font-display); text-transform: uppercase; line-height: 1; font-size: clamp(2.5rem, 6vw, 3.75rem); margin: 0.75rem 0 0.35rem; }
+.price-card__unit { font-family: var(--font-mono); font-size: var(--text-small); text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-muted); margin: 0; }
+.price-card__list { list-style: none; padding: 0; margin: 1.5rem 0 0; }
+.price-card__list li { position: relative; padding-left: 1.3rem; font-size: var(--text-body); line-height: 1.5; margin-bottom: 0.5rem; }
+.price-card__list li::before { content: "/"; position: absolute; left: 0; color: var(--color-vermillion-strong); }
+.price-note { font-family: var(--font-mono); font-size: var(--text-small); text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-muted); margin-top: 1.5rem; max-width: 52ch; line-height: 1.6; }
+
+/* ---- Form ------------------------------------------------- */
+.form { max-width: 40rem; margin-top: 1rem; }
+.field { display: block; margin-bottom: 2.5rem; }
+.field__label { font-family: var(--font-mono); font-size: var(--text-small); text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-muted); }
+.field input, .field textarea { margin-top: 0.5rem; width: 100%; background: transparent; border: 0; border-bottom: 1px solid var(--color-ink); padding: 0.75rem 0; font-family: var(--font-body); font-size: var(--text-body); color: var(--color-ink); transition: border-color 0.2s ease; }
+.field input:focus, .field textarea:focus { outline: none; border-color: var(--color-vermillion); }
+.field textarea { resize: vertical; }
+.submit { font-family: var(--font-mono); font-size: var(--text-small); text-transform: uppercase; letter-spacing: 0.06em; background: transparent; border: 0; border-bottom: 2px solid var(--color-ink); padding: 0 0 0.4rem; cursor: pointer; transition: color 0.2s ease, border-color 0.2s ease; }
+.submit:hover { color: var(--color-vermillion-strong); border-color: var(--color-vermillion-strong); }
+
+/* ---- Two-up (team) ---------------------------------------- */
+.two-up { display: grid; grid-template-columns: 1fr; gap: clamp(2rem, 5vw, 4rem); margin-top: 3rem; }
+@media (min-width: 720px) { .two-up { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.person__photo { aspect-ratio: 4 / 5; background: var(--color-ink); overflow: hidden; }
+.person__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.person__name { font-family: var(--font-display); text-transform: uppercase; font-size: var(--text-h3); line-height: 1; margin: 1.25rem 0 0.75rem; }
+
+/* ---- Footer ----------------------------------------------- */
+.site-footer { border-top: 1px solid var(--color-hairline); padding: clamp(3rem, 7vw, 5rem) var(--space-gutter); font-family: var(--font-mono); font-size: var(--text-small); }
+.site-footer__grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+@media (min-width: 720px) { .site-footer__grid { grid-template-columns: 2fr 1fr 1fr; } }
+.site-footer a { text-decoration: none; transition: color 0.2s ease; display: inline-block; padding-block: 0.3em; }
+.site-footer a:hover { color: var(--color-vermillion-strong); }
+.footer-col h4, .footer-col .footer-h { text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-muted); font-weight: normal; margin: 0 0 1rem; font-size: var(--text-small); }
+.footer-col p { margin: 0 0 0.15rem; } /* link padding-block supplies the rest of the rhythm */
+.footer-wordmark { font-family: var(--font-display); text-transform: uppercase; font-size: 1.5rem; letter-spacing: 0.03em; }
+.footer-fine { margin-top: 2.5rem; color: var(--color-muted); max-width: 48rem; line-height: 1.6; }
+
+/* ---- Accessibility + motion ------------------------------- */
+:focus-visible { outline: 2px solid var(--color-vermillion); outline-offset: 3px; }
+.skip-link { position: absolute; left: -9999px; top: 0; background: var(--color-ink); color: var(--color-paper); padding: 0.75rem 1rem; font-family: var(--font-mono); font-size: var(--text-small); text-transform: uppercase; z-index: 1000; }
+.skip-link:focus { left: 0.75rem; top: 0.75rem; }
+
+/* ---- Cinematic media stage (option A) --------------------- */
+.media-stage { position: relative; width: 100%; height: 60vh; overflow: hidden; background: var(--color-ink); }
+/* Photos slide in like a card off a deck; JS sets the direction so a
+   scroll-back reverses the motion. Full-cover so the top card hides the rest. */
+.msphere { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; will-change: transform; transform-origin: 100% 100%; }
+.msphere.on { opacity: 1; }
+.media-scrim { position: absolute; inset: 0; z-index: 6; pointer-events: none; background: linear-gradient(180deg, rgba(11,11,11,0.32), rgba(11,11,11,0.15) 55%, rgba(11,11,11,0.68)); }
+.media-hud { position: absolute; top: 1.1rem; left: 1.2rem; z-index: 8; font-family: var(--font-mono); font-size: var(--text-small); text-transform: uppercase; letter-spacing: 0.08em; color: rgba(239,238,234,0.92); }
+.media-caption { position: absolute; left: 1.2rem; bottom: 1.15rem; z-index: 8; }
+.media-caption .mc-name { font-family: var(--font-display); text-transform: uppercase; color: var(--color-paper); font-size: 1.6rem; line-height: 0.95; margin: 0; }
+.media-caption .mc-law { font-family: var(--font-mono); font-size: var(--text-small); text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-paper); background: var(--color-vermillion-strong); display: inline-block; padding: 0.15rem 0.5rem; margin-top: 0.5rem; }
+
+/* Mini orbit index in the corner */
+.mini-orbit { position: absolute; right: 1rem; bottom: 1rem; width: 104px; height: 104px; z-index: 9; }
+.mini-ring { position: absolute; inset: 8px; border: 1px dashed rgba(239,238,234,0.5); border-radius: 50%; }
+.mini-ptr { position: absolute; left: 50%; top: 0; transform: translateX(-50%); width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 8px solid var(--color-vermillion); z-index: 3; }
+.mini-wheel { position: absolute; inset: 0; transform: rotate(var(--rot, 0deg)); transition: transform 0.75s cubic-bezier(.22,.61,.36,1); z-index: 2; }
+.mini-dot { position: absolute; width: 21px; height: 21px; border-radius: 50%; background: rgba(239,238,234,0.92); color: var(--color-ink); display: flex; align-items: center; justify-content: center; transform: translate(-50%, -50%) rotate(calc(-1 * var(--rot, 0deg))); transition: background 0.35s ease, color 0.35s ease; }
+.mini-dot svg { width: 13px; height: 13px; display: block; }
+.mini-dot.on { background: var(--color-vermillion); color: var(--color-paper); }
+
+@media (min-width: 1025px) {
+  .media-stage { height: 100vh; }
 }
 
-/* Reduce-motion — system preference from the OS.
- * Backstops the JS pause on the hero reel with a CSS guard so the
- * video can't autoplay even if JS fails. */
 @media (prefers-reduced-motion: reduce) {
-  video[autoplay] {
-    /* Can't force-pause a video from CSS alone; paired with the JS
-     * handler in HeroReel. Dropping animations/transitions globally
-     * to respect motion preference. */
-    animation-play-state: paused;
-  }
-  *, *::before, *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-  }
+  .owheel, .onode span, .mini-wheel, .msphere { transition: none !important; }
+  .hero-reel { display: none !important; }
+  * { scroll-behavior: auto !important; }
 }

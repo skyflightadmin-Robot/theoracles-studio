@@ -10,19 +10,52 @@
   # Astro + Tailwind v4 need Node 20+.
   NODE_VERSION = "20"
 
-# Route renames / safety redirects.
-# The work page lives at /work (matches the nav label). The old /portfolio URL
-# that briefly shipped is 301-redirected so any external links, bookmarks, or
-# indexed pages still resolve cleanly.
+# ---- skyflightmedia.com consolidation ---------------------------------
+# SkyFlight Media's work now lives under The Oracles. Requires
+# skyflightmedia.com to be added as a domain alias on this Netlify site
+# (and its DNS pointed at Netlify) — until then these rules are inert.
+[[redirects]]
+  from = "https://skyflightmedia.com/*"
+  to = "https://theoracles.studio/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.skyflightmedia.com/*"
+  to = "https://theoracles.studio/"
+  status = 301
+  force = true
+
+# ---- Old-IA safety redirects ------------------------------------------
+# Routes that existed on earlier versions of the site. External links,
+# bookmarks, or indexed pages still resolve cleanly.
+[[redirects]]
+  from = "/work"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/work/*"
+  to = "/"
+  status = 301
+  force = true
+
 [[redirects]]
   from = "/portfolio"
-  to = "/work"
+  to = "/"
   status = 301
   force = true
 
 [[redirects]]
   from = "/portfolio/*"
-  to = "/work/:splat"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/faq"
+  to = "/pricing"
   status = 301
   force = true
 
@@ -31,6 +64,17 @@
   for = "/_astro/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# Long-cache for the hero reel + sphere photography (replaced by renaming).
+[[headers]]
+  for = "/video/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
 
 # Security headers applied to every response.
 [[headers]]

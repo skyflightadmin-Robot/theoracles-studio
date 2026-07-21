@@ -1,47 +1,32 @@
 ---
-import NewsletterForm from './NewsletterForm.astro';
-
-const socials = [
-  { label: 'X', href: 'https://x.com/oracles_studio' },
-  { label: 'Instagram', href: 'https://www.instagram.com/theoracles.studio/' },
-  { label: 'YouTube', href: 'https://www.youtube.com/@theoracles.studio' },
-];
+// Footer — Life (five spheres with named laws) · Studio · fine print.
 ---
 
-<footer class="w-full px-[var(--space-gutter)] py-12 mt-24 border-t border-[var(--color-hairline)] font-mono text-[var(--text-small)] text-[var(--color-muted)]">
-  <!-- Newsletter row — sits above the tri-column wordmark/socials/year
-       row. Netlify captures submissions; first-pass follow-up is manual. -->
-  <div class="pb-10 mb-10 border-b border-[var(--color-hairline)]">
-    <NewsletterForm variant="footer" />
-  </div>
-
-  <div class="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
-    <div>
-      <p class="uppercase tracking-wide text-[var(--color-ink)]">The Oracles</p>
-      <p class="mt-1">Where law and story meet.</p>
-      <p class="mt-4">
-        <a href="mailto:hello@theoracles.studio" class="hover:text-[var(--color-ink)]">
-          hello@theoracles.studio
-        </a>
-      </p>
+<footer class="site-footer">
+  <div class="site-footer__grid">
+    <div class="footer-col">
+      <p class="footer-wordmark">The&nbsp;Oracles</p>
+      <p class="muted" style="margin-top:1rem; max-width:30ch;">Where law and story meet.</p>
     </div>
-
-    <nav class="slash-nav flex flex-wrap" aria-label="Social">
-      {socials.map((s) => (
-        <a
-          href={s.href}
-          target="_blank"
-          rel="noopener"
-          class="hover:text-[var(--color-vermillion)] transition-colors"
-        >
-          {s.label}
-        </a>
-      ))}
-    </nav>
-
-    <div class="md:text-right">
-      <span class="bracket-count">MMXXVI</span>
-      <p class="mt-1">&copy; The Oracles Studio</p>
+    <div class="footer-col">
+      <p class="footer-h">Life</p>
+      <p><a href="/church">Church — Redemption &amp; Revelation</a></p>
+      <p><a href="/state">State — We the People</a></p>
+      <p><a href="/market">Market — A Collective Garden</a></p>
+      <p><a href="/family">Family — Foundation of Society</a></p>
+      <p><a href="/individual">Individual — Self Government</a></p>
+    </div>
+    <div class="footer-col">
+      <p class="footer-h">Studio</p>
+      <p><a href="/about">About</a></p>
+      <p><a href="/contact">Contact</a></p>
+      <p><a href="/pricing">Pricing</a></p>
+      <p><a href="mailto:hello@theoracles.studio">hello@theoracles.studio</a></p>
     </div>
   </div>
+  <p class="footer-fine">
+    The Oracles LLC &middot; MMXXVI &middot; Donations given to Urban Skye, a
+    U.S. 501(c)(3) commission some of our work consistent with their mission and
+    are attributed where applicable.
+  </p>
 </footer>
