@@ -44,12 +44,18 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         <!-- Unreleased — swap in the youtube-nocookie embed for MnouGuJZ_wQ when the client publishes -->
       </article>
       <article>
-        <div class="tile__frame">[ Video · coming soon ]</div>
-        <div class="tile__meta">
-          <h3 class="tile__title">Film 03</h3>
-          <p class="tile__credit">Dir. Dabraham · DP/Editor Aaron</p>
+        <div class="tile__embed">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/9658L7P2wyY"
+            title="Self Government Leads to Talent"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
         </div>
-        <!-- Add the YouTube link/embed here when live -->
+        <div class="tile__meta">
+          <h3 class="tile__title">Self Government Leads to Talent</h3>
+          <p class="tile__credit">Short · DP/Editor Aaron</p>
+        </div>
       </article>
     </div>
   </section>
