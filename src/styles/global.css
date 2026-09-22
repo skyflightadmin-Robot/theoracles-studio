@@ -235,6 +235,20 @@ h1, h2, h3 { font-weight: normal; margin: 0; }
 .submit { font-family: var(--font-mono); font-size: var(--text-small); text-transform: uppercase; letter-spacing: 0.06em; background: transparent; border: 0; border-bottom: 2px solid var(--color-ink); padding: 0 0 0.4rem; cursor: pointer; transition: color 0.2s ease, border-color 0.2s ease; }
 .submit:hover { color: var(--color-vermillion-strong); border-color: var(--color-vermillion-strong); }
 
+/* ---- About page desktop composition ----------------------- */
+/* The intro prose blocks stack on small screens and spread into a
+   three-column editorial grid on desktop, so the page fills wide
+   browsers instead of holding a tablet-width column. */
+.about-grid { display: flex; flex-direction: column; gap: 3.5rem; max-width: 42rem; }
+@media (min-width: 1025px) {
+  .about-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(2rem, 4vw, 4.5rem); max-width: none; align-items: start; }
+}
+/* Who we are: lead copy left, team portraits right on desktop. */
+@media (min-width: 1025px) {
+  .who-grid { display: grid; grid-template-columns: 1fr 1.9fr; gap: clamp(2rem, 4vw, 4.5rem); align-items: start; }
+  .who-grid .two-up { margin-top: 0; }
+}
+
 /* ---- Two-up (team) ---------------------------------------- */
 .two-up { display: grid; grid-template-columns: 1fr; gap: clamp(2rem, 5vw, 4rem); margin-top: 3rem; }
 @media (min-width: 720px) { .two-up { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

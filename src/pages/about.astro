@@ -13,7 +13,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   </section>
 
   <section class="section section--tight">
-    <div class="measure" style="display:flex; flex-direction:column; gap:3.5rem;">
+    <div class="about-grid">
       <div>
         <p class="eyebrow vermillion">What is The Oracles?</p>
         <p class="lead">
@@ -71,13 +71,16 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   </section>
 
   <section class="section rule-top">
-    <p class="eyebrow vermillion">Who we are</p>
-    <p class="lead measure">
-      Aaron is technical, obsessed with the details. Dabraham barely notices the
-      details, but knows exactly how they&rsquo;ll make you feel. We need each
-      other to make anything at all.
-    </p>
-    <div class="two-up measure-wide">
+    <div class="who-grid">
+      <div>
+        <p class="eyebrow vermillion">Who we are</p>
+        <p class="lead">
+          Aaron is technical, obsessed with the details. Dabraham barely notices the
+          details, but knows exactly how they&rsquo;ll make you feel. We need each
+          other to make anything at all.
+        </p>
+      </div>
+      <div class="two-up">
       <figure style="margin:0;">
         <div class="person__photo"><img src="/images/dabe.jpg" alt="Dabraham Searcy" loading="lazy" /></div>
         <figcaption>
@@ -92,6 +95,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           <p class="lead">A former pastor who shoots and cuts, the DP/editor who brings the vision to life.</p>
         </figcaption>
       </figure>
+      </div>
     </div>
   </section>
 
