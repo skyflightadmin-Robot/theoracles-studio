@@ -169,6 +169,8 @@ h1, h2, h3 { font-weight: normal; margin: 0; }
 .vhero { padding: clamp(3.5rem, 9vw, 8rem) var(--space-gutter) clamp(2rem, 5vw, 4rem); }
 .vhero__title { font-family: var(--font-display); text-transform: uppercase; line-height: 0.9; font-size: var(--text-display); max-width: 16ch; }
 .vhero__title .accent { color: var(--color-vermillion); }
+/* Accent word inside section headings (e.g. pricing group titles) */
+.h1 .accent, .h2 .accent { color: var(--color-vermillion-strong); }
 .vhero .law-line { margin-top: 1.75rem; }
 .vhero__sub { margin-top: 1.5rem; max-width: 44rem; font-size: var(--text-body); line-height: 1.6; }
 
