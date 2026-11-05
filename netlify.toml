@@ -59,6 +59,15 @@
   status = 301
   force = true
 
+# ---- Privacy policy: exact-URL 200 ------------------------------------
+# Google OAuth verification checks https://theoracles.studio/privacy and
+# expects a 200, not the default trailing-slash 301 to /privacy/.
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy/index.html"
+  status = 200
+  force = true
+
 # Long-cache for fingerprinted Astro assets.
 [[headers]]
   for = "/_astro/*"
