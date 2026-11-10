@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="TikTok connected — The Oracles"
+  description="Sign-in return page for Oracles Social, The Oracles' internal tool."
+  path="/oauth/tiktok"
+>
+  <section class="vhero">
+    <h1 class="vhero__title">TikTok connected</h1>
+  </section>
+
+  <section class="section section--tight">
+    <div class="measure">
+      <div id="code-wrap" hidden>
+        <p class="mono muted">Authorization code</p>
+        <pre id="code" class="mono" style="white-space:pre-wrap;word-break:break-all;padding:1rem;border:1px solid currentColor;border-radius:6px;user-select:all"></pre>
+        <p><button id="copy" type="button" class="mono">Copy</button></p>
+        <p class="lead">Paste this code back into Oracles Social. It expires in a few minutes.</p>
+      </div>
+      <p id="no-code" class="lead">No code was returned. Close this page and start the connection again from Oracles Social.</p>
+    </div>
+  </section>
+
+  <script is:inline>
+    (function () {
+      var q = new URLSearchParams(window.location.search);
+      var c = q.get("auth_code") || q.get("code");
+      if (!c) return;
+      document.getElementById("code").textContent = c;
+      document.getElementById("code-wrap").hidden = false;
+      document.getElementById("no-code").hidden = true;
+      document.getElementById("copy").addEventListener("click", function () {
+        if (navigator.clipboard) navigator.clipboard.writeText(c);
+        this.textContent = "Copied";
+      });
+    })();
+  </script>
+</BaseLayout>

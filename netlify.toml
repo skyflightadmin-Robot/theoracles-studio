@@ -68,6 +68,20 @@
   status = 200
   force = true
 
+# Terms and the TikTok sign-in return page: exact-URL 200, like /privacy
+# (TikTok's app review checks these URLs).
+[[redirects]]
+  from = "/terms"
+  to = "/terms/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/oauth/tiktok"
+  to = "/oauth/tiktok/index.html"
+  status = 200
+  force = true
+
 # Long-cache for fingerprinted Astro assets.
 [[headers]]
   for = "/_astro/*"
